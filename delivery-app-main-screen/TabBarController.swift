@@ -84,11 +84,12 @@ class TabBarController: UITabBarController {
     }
     
     private func initializeMenuTab() {
-        let menuVC = MenuViewController()
+        let menuVC = MenuModuleAssembler.assembleModule()
         menuVC.tabBarItem = UITabBarItem(title: TabBarItem.menu.title,
                                          image: TabBarItem.menu.image,
                                          selectedImage: TabBarItem.menu.image)
         menuVC.title = menuVC.tabBarItem.title
+        menuVC.navigationItem.title = ""
         menusNav = CustomNavigationController(rootViewController: menuVC)
     }
     

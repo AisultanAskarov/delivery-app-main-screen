@@ -20,6 +20,10 @@
 		2223B6582B5447F800708BFB /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6572B5447F800708BFB /* CartViewController.swift */; };
 		2223B65A2B544E6F00708BFB /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6592B544E6F00708BFB /* CustomNavigationController.swift */; };
 		2223B65E2B544F9700708BFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B65D2B544F9700708BFB /* Colors.swift */; };
+		2223B6642B546A4A00708BFB /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6632B546A4A00708BFB /* MenuPresenter.swift */; };
+		2223B6662B546A5B00708BFB /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6652B546A5B00708BFB /* MenuInteractor.swift */; };
+		2223B6682B546A6000708BFB /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6672B546A6000708BFB /* MenuRouter.swift */; };
+		2223B66A2B5472D300708BFB /* MenuModuleAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6692B5472D300708BFB /* MenuModuleAssembler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		2223B6572B5447F800708BFB /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		2223B6592B544E6F00708BFB /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		2223B65D2B544F9700708BFB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		2223B6632B546A4A00708BFB /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		2223B6652B546A5B00708BFB /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
+		2223B6672B546A6000708BFB /* MenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRouter.swift; sourceTree = "<group>"; };
+		2223B6692B5472D300708BFB /* MenuModuleAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModuleAssembler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +139,10 @@
 		2223B6522B5447AC00708BFB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				2223B61F2B54385700708BFB /* MenuViewController.swift */,
-				2223B6532B5447DD00708BFB /* ContactsViewController.swift */,
-				2223B6552B5447EF00708BFB /* UserProfileViewController.swift */,
-				2223B6572B5447F800708BFB /* CartViewController.swift */,
+				2223B65F2B54634A00708BFB /* Menu */,
+				2223B6602B5469B700708BFB /* Contacts */,
+				2223B6612B5469BE00708BFB /* UserProfile */,
+				2223B6622B5469C400708BFB /* Cart */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -145,6 +153,42 @@
 				2223B65D2B544F9700708BFB /* Colors.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		2223B65F2B54634A00708BFB /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				2223B61F2B54385700708BFB /* MenuViewController.swift */,
+				2223B6632B546A4A00708BFB /* MenuPresenter.swift */,
+				2223B6652B546A5B00708BFB /* MenuInteractor.swift */,
+				2223B6672B546A6000708BFB /* MenuRouter.swift */,
+				2223B6692B5472D300708BFB /* MenuModuleAssembler.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		2223B6602B5469B700708BFB /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				2223B6532B5447DD00708BFB /* ContactsViewController.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		2223B6612B5469BE00708BFB /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2223B6552B5447EF00708BFB /* UserProfileViewController.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		2223B6622B5469C400708BFB /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				2223B6572B5447F800708BFB /* CartViewController.swift */,
+			);
+			path = Cart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,6 +324,10 @@
 				2223B6262B54385700708BFB /* delivery_app_main_screen.xcdatamodeld in Sources */,
 				2223B65E2B544F9700708BFB /* Colors.swift in Sources */,
 				2223B6202B54385700708BFB /* MenuViewController.swift in Sources */,
+				2223B66A2B5472D300708BFB /* MenuModuleAssembler.swift in Sources */,
+				2223B6662B546A5B00708BFB /* MenuInteractor.swift in Sources */,
+				2223B6642B546A4A00708BFB /* MenuPresenter.swift in Sources */,
+				2223B6682B546A6000708BFB /* MenuRouter.swift in Sources */,
 				2223B6562B5447EF00708BFB /* UserProfileViewController.swift in Sources */,
 				2223B65A2B544E6F00708BFB /* CustomNavigationController.swift in Sources */,
 				2223B61C2B54385700708BFB /* AppDelegate.swift in Sources */,
