@@ -9,14 +9,17 @@
 /* Begin PBXBuildFile section */
 		2223B61C2B54385700708BFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61B2B54385700708BFB /* AppDelegate.swift */; };
 		2223B61E2B54385700708BFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61D2B54385700708BFB /* SceneDelegate.swift */; };
-		2223B6202B54385700708BFB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61F2B54385700708BFB /* ViewController.swift */; };
-		2223B6232B54385700708BFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2223B6212B54385700708BFB /* Main.storyboard */; };
+		2223B6202B54385700708BFB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61F2B54385700708BFB /* MenuViewController.swift */; };
 		2223B6262B54385700708BFB /* delivery_app_main_screen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6242B54385700708BFB /* delivery_app_main_screen.xcdatamodeld */; };
 		2223B6282B54385800708BFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2223B6272B54385800708BFB /* Assets.xcassets */; };
 		2223B62B2B54385800708BFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2223B6292B54385800708BFB /* LaunchScreen.storyboard */; };
 		2223B6362B54385800708BFB /* delivery_app_main_screenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6352B54385800708BFB /* delivery_app_main_screenTests.swift */; };
-		2223B6402B54385800708BFB /* delivery_app_main_screenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B63F2B54385800708BFB /* delivery_app_main_screenUITests.swift */; };
-		2223B6422B54385800708BFB /* delivery_app_main_screenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6412B54385800708BFB /* delivery_app_main_screenUITestsLaunchTests.swift */; };
+		2223B6512B543D2E00708BFB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6502B543D2E00708BFB /* TabBarController.swift */; };
+		2223B6542B5447DD00708BFB /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6532B5447DD00708BFB /* ContactsViewController.swift */; };
+		2223B6562B5447EF00708BFB /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6552B5447EF00708BFB /* UserProfileViewController.swift */; };
+		2223B6582B5447F800708BFB /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6572B5447F800708BFB /* CartViewController.swift */; };
+		2223B65A2B544E6F00708BFB /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6592B544E6F00708BFB /* CustomNavigationController.swift */; };
+		2223B65E2B544F9700708BFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B65D2B544F9700708BFB /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +43,7 @@
 		2223B6182B54385700708BFB /* delivery-app-main-screen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "delivery-app-main-screen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2223B61B2B54385700708BFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2223B61D2B54385700708BFB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2223B61F2B54385700708BFB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2223B6222B54385700708BFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2223B61F2B54385700708BFB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		2223B6252B54385700708BFB /* delivery_app_main_screen.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = delivery_app_main_screen.xcdatamodel; sourceTree = "<group>"; };
 		2223B6272B54385800708BFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2223B62A2B54385800708BFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,8 +51,12 @@
 		2223B6312B54385800708BFB /* delivery-app-main-screenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "delivery-app-main-screenTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2223B6352B54385800708BFB /* delivery_app_main_screenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = delivery_app_main_screenTests.swift; sourceTree = "<group>"; };
 		2223B63B2B54385800708BFB /* delivery-app-main-screenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "delivery-app-main-screenUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2223B63F2B54385800708BFB /* delivery_app_main_screenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = delivery_app_main_screenUITests.swift; sourceTree = "<group>"; };
-		2223B6412B54385800708BFB /* delivery_app_main_screenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = delivery_app_main_screenUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2223B6502B543D2E00708BFB /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		2223B6532B5447DD00708BFB /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		2223B6552B5447EF00708BFB /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		2223B6572B5447F800708BFB /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		2223B6592B544E6F00708BFB /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		2223B65D2B544F9700708BFB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +89,6 @@
 			children = (
 				2223B61A2B54385700708BFB /* delivery-app-main-screen */,
 				2223B6342B54385800708BFB /* delivery-app-main-screenTests */,
-				2223B63E2B54385800708BFB /* delivery-app-main-screenUITests */,
 				2223B6192B54385700708BFB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,8 +108,10 @@
 			children = (
 				2223B61B2B54385700708BFB /* AppDelegate.swift */,
 				2223B61D2B54385700708BFB /* SceneDelegate.swift */,
-				2223B61F2B54385700708BFB /* ViewController.swift */,
-				2223B6212B54385700708BFB /* Main.storyboard */,
+				2223B6502B543D2E00708BFB /* TabBarController.swift */,
+				2223B6592B544E6F00708BFB /* CustomNavigationController.swift */,
+				2223B6522B5447AC00708BFB /* ViewControllers */,
+				2223B65C2B544F8700708BFB /* Colors */,
 				2223B6272B54385800708BFB /* Assets.xcassets */,
 				2223B6292B54385800708BFB /* LaunchScreen.storyboard */,
 				2223B62C2B54385800708BFB /* Info.plist */,
@@ -121,13 +128,23 @@
 			path = "delivery-app-main-screenTests";
 			sourceTree = "<group>";
 		};
-		2223B63E2B54385800708BFB /* delivery-app-main-screenUITests */ = {
+		2223B6522B5447AC00708BFB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				2223B63F2B54385800708BFB /* delivery_app_main_screenUITests.swift */,
-				2223B6412B54385800708BFB /* delivery_app_main_screenUITestsLaunchTests.swift */,
+				2223B61F2B54385700708BFB /* MenuViewController.swift */,
+				2223B6532B5447DD00708BFB /* ContactsViewController.swift */,
+				2223B6552B5447EF00708BFB /* UserProfileViewController.swift */,
+				2223B6572B5447F800708BFB /* CartViewController.swift */,
 			);
-			path = "delivery-app-main-screenUITests";
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2223B65C2B544F8700708BFB /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				2223B65D2B544F9700708BFB /* Colors.swift */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +253,6 @@
 			files = (
 				2223B62B2B54385800708BFB /* LaunchScreen.storyboard in Resources */,
 				2223B6282B54385800708BFB /* Assets.xcassets in Resources */,
-				2223B6232B54385700708BFB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,9 +278,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2223B6262B54385700708BFB /* delivery_app_main_screen.xcdatamodeld in Sources */,
-				2223B6202B54385700708BFB /* ViewController.swift in Sources */,
+				2223B65E2B544F9700708BFB /* Colors.swift in Sources */,
+				2223B6202B54385700708BFB /* MenuViewController.swift in Sources */,
+				2223B6562B5447EF00708BFB /* UserProfileViewController.swift in Sources */,
+				2223B65A2B544E6F00708BFB /* CustomNavigationController.swift in Sources */,
 				2223B61C2B54385700708BFB /* AppDelegate.swift in Sources */,
+				2223B6582B5447F800708BFB /* CartViewController.swift in Sources */,
+				2223B6512B543D2E00708BFB /* TabBarController.swift in Sources */,
 				2223B61E2B54385700708BFB /* SceneDelegate.swift in Sources */,
+				2223B6542B5447DD00708BFB /* ContactsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,8 +302,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2223B6402B54385800708BFB /* delivery_app_main_screenUITests.swift in Sources */,
-				2223B6422B54385800708BFB /* delivery_app_main_screenUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,14 +321,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2223B6212B54385700708BFB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2223B6222B54385700708BFB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2223B6292B54385800708BFB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -372,7 +384,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -429,7 +442,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -449,11 +463,13 @@
 				DEVELOPMENT_TEAM = 9ARMKSND23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "delivery-app-main-screen/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = DeliveryApp;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,9 +477,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screen";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -477,11 +497,13 @@
 				DEVELOPMENT_TEAM = 9ARMKSND23;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "delivery-app-main-screen/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = DeliveryApp;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -489,9 +511,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screen";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -504,13 +530,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9ARMKSND23;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screenTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/delivery-app-main-screen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/delivery-app-main-screen";
 			};
 			name = Debug;
@@ -524,13 +554,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9ARMKSND23;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screenTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/delivery-app-main-screen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/delivery-app-main-screen";
 			};
 			name = Release;
@@ -543,12 +577,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9ARMKSND23;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screenUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = "delivery-app-main-screen";
 			};
 			name = Debug;
@@ -561,12 +600,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9ARMKSND23;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screenUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = "delivery-app-main-screen";
 			};
 			name = Release;
