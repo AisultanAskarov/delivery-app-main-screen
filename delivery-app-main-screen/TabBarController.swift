@@ -84,7 +84,7 @@ final class TabBarController: UITabBarController {
     }
     
     private func initializeMenuTab() {
-        let menuVC = MenuModuleAssembler.assembleModule()
+        guard let menuVC = MenuModuleAssembler.assembleModule() else { return }
         menuVC.tabBarItem = UITabBarItem(title: TabBarItem.menu.title,
                                          image: TabBarItem.menu.image,
                                          selectedImage: TabBarItem.menu.image)

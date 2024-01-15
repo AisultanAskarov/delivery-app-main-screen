@@ -8,12 +8,16 @@
 import UIKit
 
 protocol MenuViewProtocol: AnyObject {
+    var presenter: MenuPresenterProtocol? { get set }
     func updateCityLabel(_ cityName: String)
+    func update(with users: [MenuItem])
+    func update(with error: String)
 }
 
 class MenuViewController: UIViewController, MenuViewProtocol {
     
     var presenter: MenuPresenterProtocol?
+    
     private let colors = Colors()
     private let categoriesList: [String] =  FoodCategory.allCases.map { $0.listValue }
     private let categoryCellId = "CategoryCell"
@@ -74,6 +78,24 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         configureViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        presenter?.fetchMenuItems()
+    }
+    
+    //MARK: - Protocol Methods
+    func update(with users: [MenuItem]) {
+        
+    }
+    
+    func update(with error: String) {
+        
+    }
+    
+    func updateCityLabel(_ cityName: String) {
+        self.cityLabel?.text = cityName
+    }
+    
+    //MARK: - Layout Functions
     private func configureViews() {
         view.backgroundColor = colors.mainBgColor
         setupNavigationBar()
@@ -134,11 +156,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     }
 
     private func updateFloatingCategorySelectorPosition() {
-
-    }
-    
-    func updateCityLabel(_ cityName: String) {
-        self.cityLabel?.text = cityName
+        
     }
     
     private func createCustomNavBarItem() -> UIView {
@@ -249,8 +267,6 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categorySelectorCollectionView {
-            let strData = categoriesList[indexPath.item]
-            
             if arrSelectedFilter == indexPath {
                 arrSelectedFilter = nil
             }

@@ -44,6 +44,7 @@ public enum FoodCategory: CaseIterable {
 }
 
 struct MenuItem: Decodable {
+    let _id: String
     let id: Int
     let title: String
     let restaurantChain: String
@@ -53,15 +54,16 @@ struct MenuItem: Decodable {
 }
 
 struct Servings: Decodable {
-    let number: Int
-    let size: Int
-    let unit: String
+    let number: Double
+    let size: Double?
+    let unit: String?
 }
 
 struct MenuItemsResponse: Decodable {
-    let menuItems: [MenuItem]
-    let totalMenuItems: Int
     let type: String
+    let menuItems: [MenuItem]
     let offset: Int
     let number: Int
+    let totalMenuItems: Int
+    let processingTimeMs: Int
 }

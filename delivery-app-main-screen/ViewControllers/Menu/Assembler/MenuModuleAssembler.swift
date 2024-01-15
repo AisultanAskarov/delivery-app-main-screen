@@ -8,15 +8,11 @@
 import UIKit
 
 class MenuModuleAssembler {
-    static func assembleModule() -> UIViewController {
+    static func assembleModule() -> UIViewController? {
         // Create the VIPER components
-        let view = MenuViewController()
-        let interactor = MenuInteractor()
-        let presenter = MenuPresenter(view: view, interactor: interactor, router: MenuRouter(view: view))
-
-        view.presenter = presenter
-        interactor.presenter = presenter
+        let router = MenuRouter.start()
+        let menuVC = router.entry
         
-        return view
+        return menuVC
     }
 }

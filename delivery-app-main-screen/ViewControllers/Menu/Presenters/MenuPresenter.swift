@@ -8,34 +8,40 @@
 import UIKit
 
 protocol MenuPresenterProtocol: AnyObject {
+    var view: MenuViewProtocol? { get set }
+    var interactor: MenuInteractorProtocol? { get set }
+    var router: MenuRouterProtocol? { get set }
+
     func getCities() -> [UIAction]
     func getSelectedCity() -> String?
     func didSelectCity(_ city: String)
     func updateCityLabel(_ cityName: String)
     func updateCityLabelWithStoredValue()
+    
+    func fetchMenuItems()
+    func interactorDidFetchMenuItems(with result: Result<[ItemsResponse], Error>)
 }
 
 class MenuPresenter: MenuPresenterProtocol {
-    weak var view: MenuViewProtocol?
-    var interactor: MenuInteractorProtocol
-    var router: MenuRouterProtocol
     
-    init(view: MenuViewProtocol, interactor: MenuInteractorProtocol, router: MenuRouterProtocol) {
-        self.view = view
-        self.interactor = interactor
-        self.router = router
+    var view: MenuViewProtocol?
+    var interactor: MenuInteractorProtocol?
+    var router: MenuRouterProtocol?
+    
+    init() {
+        interactor?.getMenuItems()
     }
     
     func didSelectCity(_ city: String) {
-        interactor.didSelectCity(city)
+        interactor?.didSelectCity(city)
     }
     
     func getCities() -> [UIAction] {
-        return interactor.getCities()
+        return interactor?.getCities() ?? []
     }
     
     func getSelectedCity() -> String? {
-        return interactor.getSelectedCity()
+        return interactor?.getSelectedCity()
     }
     
     func updateCityLabel(_ cityName: String) {
@@ -46,5 +52,13 @@ class MenuPresenter: MenuPresenterProtocol {
         if let selectedCity = getSelectedCity() {
             updateCityLabel(selectedCity)
         }
+    }
+    
+    func fetchMenuItems() {
+        interactor?.getMenuItems()
+    }
+    
+    func interactorDidFetchMenuItems(with result: Result<[ItemsResponse], Error>) {
+        
     }
 }

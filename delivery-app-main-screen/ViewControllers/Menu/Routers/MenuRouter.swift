@@ -5,19 +5,39 @@
 //  Created by Aisultan Askarov on 14.01.2024.
 //
 
-import Foundation
+import UIKit
+
+typealias EntryPoint = MenuViewProtocol & UIViewController
 
 protocol MenuRouterProtocol {
-    // Define methods for navigation
+    var entry: EntryPoint? { get }
+    static func start() -> MenuRouterProtocol
 }
 
 class MenuRouter: MenuRouterProtocol {
-    weak var view: MenuViewController?
+    var entry: EntryPoint?
+    
+    static func start() -> MenuRouterProtocol {
+        let router = MenuRouter()
+        let decoder = JSONDecoder()
+        
+        let view: MenuViewProtocol = MenuViewController()
+        let presenter: MenuPresenterProtocol = MenuPresenter()
+        var interactor: MenuInteractorProtocol = MenuInteractor()
+        let itemsNetworkService: MenuItemsNetworkService = MenuItemsNetworkService(jsonDecoder: decoder)
+        
+        view.presenter = presenter
+        
+        interactor.presenter = presenter
+        interactor.itemsNetworkService = itemsNetworkService
+        
+        presenter.router = router
+        presenter.view = view
+        presenter.interactor = interactor
 
-    init(view: MenuViewController) {
-        self.view = view
+        router.entry = view as? EntryPoint
+        
+        return router
     }
-
-    // Implement MenuRouterProtocol methods
-    // ...
+    
 }

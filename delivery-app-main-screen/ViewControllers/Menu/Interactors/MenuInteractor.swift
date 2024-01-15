@@ -8,10 +8,15 @@
 import UIKit
 
 protocol MenuInteractorProtocol {
+    var presenter: MenuPresenterProtocol? { get set }
+    var itemsNetworkService: MenuItemsNetworkServiceProtocol? { get set }
+    
     func getCities() -> [UIAction]
     func didSelectCity(_ city: String)
     func getSelectedCity() -> String?
     func setSelectedCity(_ city: String)
+    
+    func getMenuItems()
 }
 
 public enum Cities: String {
@@ -28,8 +33,10 @@ public enum Cities: String {
 }
 
 class MenuInteractor: MenuInteractorProtocol {
-    var presenter: MenuPresenterProtocol?
     
+    var presenter: MenuPresenterProtocol?
+    var itemsNetworkService: MenuItemsNetworkServiceProtocol?
+
     func getCities() -> [UIAction] {
         return [
             .init(title: Cities.Moscow.rawValue) { [weak self] _ in self?.didSelectCity(Cities.Moscow.rawValue) },
@@ -56,6 +63,17 @@ class MenuInteractor: MenuInteractorProtocol {
     
     func setSelectedCity(_ city: String) {
         UserDefaults.standard.set(city, forKey: "selectedCity")
+    }
+    
+    func getMenuItems() {
+        itemsNetworkService?.getItemsForCategory(.burgers, completion: { result in
+            switch result {
+            case let .success(items):
+                print(items)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        })
     }
 }
 

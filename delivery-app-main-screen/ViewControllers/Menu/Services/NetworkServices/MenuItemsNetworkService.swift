@@ -13,7 +13,7 @@ protocol MenuItemsNetworkServiceProtocol {
 
 struct ItemsResponse {
     let items: [MenuItem]
-    let hasMoreItems: Bool
+    let category: FoodCategory
 }
 
 enum Errors: Error {
@@ -22,11 +22,13 @@ enum Errors: Error {
 }
 
 final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
+    
     private enum Endpoints {
+        //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=77d24e26adb448c5b3a60aeb45e11020
         static func menuItems(for category: FoodCategory) -> String {
             let baseEndpoint = "https://api.spoonacular.com/food/menuItems/search"
             let query = category.queryValue
-            return "\(baseEndpoint)?query=\(query)&number=10"
+            return "\(baseEndpoint)?query=\(query)&apiKey=77d24e26adb448c5b3a60aeb45e11020"
         }
     }
     
@@ -48,9 +50,9 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
             switch (data, error) {
             case let (.some(data), nil):
                 do {
-                    let menuItems = try jsonDecoder.decode([MenuItem].self, from: data)
-                    let hasMoreItems = menuItems.count == 10
-                    let itemsResponse = ItemsResponse(items: menuItems, hasMoreItems: hasMoreItems)
+                    let menuItems = try jsonDecoder.decode(MenuItemsResponse.self, from: data)
+                    let hasMoreItems = false
+                    let itemsResponse = ItemsResponse(items: menuItems.menuItems, category: category)
                     completion(.success(itemsResponse))
                 } catch {
                     completion(.failure(error))
