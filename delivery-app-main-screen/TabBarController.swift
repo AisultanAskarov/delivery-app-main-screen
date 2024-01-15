@@ -41,7 +41,7 @@ private enum TabBarItem: String {
     }
 }
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     //MARK: - Properties
     private var menusNav: UINavigationController?
     private var contactsNav: UINavigationController?

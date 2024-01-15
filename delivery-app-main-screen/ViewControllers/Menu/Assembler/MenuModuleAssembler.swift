@@ -13,8 +13,7 @@ class MenuModuleAssembler {
         let view = MenuViewController()
         let interactor = MenuInteractor()
         let presenter = MenuPresenter(view: view, interactor: interactor, router: MenuRouter(view: view))
-        
-        // Connect the VIPER components
+
         view.presenter = presenter
         interactor.presenter = presenter
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomNavigationController: UINavigationController {
+final class CustomNavigationController: UINavigationController {
     private let colors = Colors()
     
     override func viewDidLoad() {

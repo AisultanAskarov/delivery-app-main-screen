@@ -29,7 +29,7 @@ public enum Cities: String {
 
 class MenuInteractor: MenuInteractorProtocol {
     var presenter: MenuPresenterProtocol?
-
+    
     func getCities() -> [UIAction] {
         return [
             .init(title: Cities.Moscow.rawValue) { [weak self] _ in self?.didSelectCity(Cities.Moscow.rawValue) },
@@ -44,17 +44,16 @@ class MenuInteractor: MenuInteractorProtocol {
             .init(title: Cities.RostovOnDon.rawValue) { [weak self] _ in self?.didSelectCity(Cities.RostovOnDon.rawValue) },
         ]
     }
-
+    
     func didSelectCity(_ city: String) {
         presenter?.updateCityLabel(city)
         setSelectedCity(city)
-        // Additional business logic for city selection
     }
-
+    
     func getSelectedCity() -> String? {
         return UserDefaults.standard.string(forKey: "selectedCity")
     }
-
+    
     func setSelectedCity(_ city: String) {
         UserDefaults.standard.set(city, forKey: "selectedCity")
     }
