@@ -19,18 +19,18 @@ protocol MenuPresenterProtocol: AnyObject {
     func updateCityLabelWithStoredValue()
     
     func fetchMenuItems()
-    func interactorDidFetchMenuItems(with result: Result<[ItemsResponse], Error>)
+    func interactorDidFetchMenuItems(with result: Result<ItemsResponse, Error>)
 }
 
 class MenuPresenter: MenuPresenterProtocol {
     
     var view: MenuViewProtocol?
-    var interactor: MenuInteractorProtocol?
-    var router: MenuRouterProtocol?
-    
-    init() {
-        interactor?.getMenuItems()
+    var interactor: MenuInteractorProtocol? {
+        didSet {
+            interactor?.getMenuItems()
+        }
     }
+    var router: MenuRouterProtocol?
     
     func didSelectCity(_ city: String) {
         interactor?.didSelectCity(city)
@@ -58,7 +58,12 @@ class MenuPresenter: MenuPresenterProtocol {
         interactor?.getMenuItems()
     }
     
-    func interactorDidFetchMenuItems(with result: Result<[ItemsResponse], Error>) {
-        
+    func interactorDidFetchMenuItems(with result: Result<ItemsResponse, Error>) {
+        switch result {
+        case let .success(items):
+            view?.update(with: items)
+        case let .failure(error):
+            view?.update(with: error.localizedDescription)
+        }
     }
 }

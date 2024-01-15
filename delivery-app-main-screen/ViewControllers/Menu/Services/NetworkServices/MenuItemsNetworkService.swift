@@ -51,7 +51,6 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
             case let (.some(data), nil):
                 do {
                     let menuItems = try jsonDecoder.decode(MenuItemsResponse.self, from: data)
-                    let hasMoreItems = false
                     let itemsResponse = ItemsResponse(items: menuItems.menuItems, category: category)
                     completion(.success(itemsResponse))
                 } catch {

@@ -9,26 +9,7 @@ import UIKit
 
 class FoodItemCell: UITableViewCell {
 
-    let viewForCell: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.20)
-        view.layer.cornerRadius = 20
-        view.layer.masksToBounds = true
-        view.clipsToBounds = true
-        
-        return view
-    }()
-    
-    let darkeningView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.05)
-        view.layer.cornerRadius = 20
-        view.layer.masksToBounds = true
-        
-        return view
-    }()
-
-    let exercisesImageView: UIImageView = {
+    let itemsImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.clear
         imageView.contentMode = .scaleAspectFill
@@ -36,26 +17,21 @@ class FoodItemCell: UITableViewCell {
         
         return imageView
     }()
-
-    let exerciseNameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
-        label.allowsDefaultTighteningForTruncation = false
-        label.sizeToFit()
-        label.numberOfLines = 2
-        label.textColor = UIColor.white.withAlphaComponent(1.0)
-        label.backgroundColor = UIColor.clear
-        label.textAlignment = .left
+    
+    let infoContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
         
-        return label
+        return view
     }()
     
-    let equipmentTypeLabel: UILabel = {
+    let itemsNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13.0)
-        label.text = "Equipment: Dumbbell"
-        label.textColor = UIColor.white.withAlphaComponent(0.95)
-        label.backgroundColor = UIColor.clear
+        label.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
+        label.text = "Ветчина и грибы"
+        label.textColor = .black
+        label.backgroundColor = .clear
         label.textAlignment = .left
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -63,64 +39,83 @@ class FoodItemCell: UITableViewCell {
         return label
     }()
     
-    let priorMuscleLabel: UILabel = {
+    let itemsIngredientsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13.0)
-        label.text = "Prior Muscle: Upper Chest"
-        label.textColor = UIColor.white.withAlphaComponent(0.95)
-        label.backgroundColor = UIColor.clear
+        label.text = "Ветчина, шапиньоны, увеличенная порция моцареллы, томатный соус"
+        label.textColor = .gray
+        label.backgroundColor = .clear
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 4
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
+    }()
+    
+    let purchaseButon: UIButton = {
+        let button = UIButton()
+        button.setTitle("от 345 р", for: .normal)
+        button.setTitleColor(Colors().tabItemActive, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
+        button.backgroundColor = .clear
+        button.layer.borderWidth = 1
+        button.layer.borderColor = Colors().tabItemActive.cgColor
+        
+        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = UIColor.clear
-        addSubview(viewForCell)
-        viewForCell.addSubview(exercisesImageView)
-        exercisesImageView.addSubview(darkeningView)
-        viewForCell.addSubview(exerciseNameLabel)
-        viewForCell.addSubview(equipmentTypeLabel)
-        viewForCell.addSubview(priorMuscleLabel)
+        addSubview(itemsImageView)
+        addSubview(infoContainer)
+        infoContainer.addSubview(itemsNameLabel)
+        infoContainer.addSubview(itemsIngredientsLabel)
+        infoContainer.addSubview(purchaseButon)
         
-        viewForCell.translatesAutoresizingMaskIntoConstraints = false
-        exercisesImageView.translatesAutoresizingMaskIntoConstraints = false
-        darkeningView.translatesAutoresizingMaskIntoConstraints = false
-        exerciseNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        equipmentTypeLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemsImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            itemsImageView.topAnchor.constraint(equalTo: topAnchor),
+            itemsImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
+            itemsImageView.heightAnchor.constraint(equalToConstant: 132.0),
+            itemsImageView.widthAnchor.constraint(equalToConstant: 132.0),
+            itemsImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
-        viewForCell.topAnchor.constraint(equalTo: topAnchor, constant: 7.0).isActive = true
-        viewForCell.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7.0).isActive = true
-        viewForCell.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        viewForCell.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        infoContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoContainer.centerYAnchor.constraint(equalTo: itemsImageView.centerYAnchor),
+            infoContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            infoContainer.leadingAnchor.constraint(equalTo: itemsImageView.trailingAnchor, constant: 20.0),
+            infoContainer.heightAnchor.constraint(equalToConstant: 132.0),
+        ])
         
-        exercisesImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        exercisesImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5).isActive = true
-        exercisesImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -20).isActive = true
-        exercisesImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20).isActive = true
+        itemsNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            itemsNameLabel.topAnchor.constraint(equalTo: infoContainer.topAnchor),
+            itemsNameLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
+            itemsNameLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
+            itemsNameLabel.heightAnchor.constraint(equalToConstant: 20.0)
+        ])
         
-        darkeningView.topAnchor.constraint(equalTo: topAnchor, constant: 7.0).isActive = true
-        darkeningView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7.0).isActive = true
-        darkeningView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        darkeningView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        itemsIngredientsLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            itemsIngredientsLabel.topAnchor.constraint(equalTo: itemsNameLabel.bottomAnchor, constant: 5.0),
+            itemsIngredientsLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
+            itemsIngredientsLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
+            itemsIngredientsLabel.heightAnchor.constraint(equalToConstant: 48.0)
+        ])
         
-        exerciseNameLabel.leftAnchor.constraint(equalTo: viewForCell.leftAnchor, constant: 15).isActive = true
-        exerciseNameLabel.bottomAnchor.constraint(equalTo: priorMuscleLabel.topAnchor, constant: -5).isActive = true
-        exerciseNameLabel.widthAnchor.constraint(equalToConstant: (frame.width / 1.75)).isActive = true
+        purchaseButon.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            purchaseButon.topAnchor.constraint(equalTo: itemsIngredientsLabel.bottomAnchor, constant: 10.0),
+            purchaseButon.rightAnchor.constraint(equalTo: infoContainer.rightAnchor),
+            purchaseButon.heightAnchor.constraint(equalToConstant: 30.0),
+            purchaseButon.widthAnchor.constraint(equalToConstant: 90.0)
+        ])
+        purchaseButon.layer.cornerRadius = 5
         
-        priorMuscleLabel.leadingAnchor.constraint(equalTo: viewForCell.leadingAnchor, constant: 15).isActive = true
-        priorMuscleLabel.trailingAnchor.constraint(equalTo: viewForCell.trailingAnchor, constant: -15).isActive = true
-        priorMuscleLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        priorMuscleLabel.bottomAnchor.constraint(equalTo: equipmentTypeLabel.topAnchor, constant: 0).isActive = true
-        
-        equipmentTypeLabel.leadingAnchor.constraint(equalTo: viewForCell.leadingAnchor, constant: 15).isActive = true
-        equipmentTypeLabel.trailingAnchor.constraint(equalTo: viewForCell.trailingAnchor, constant: -15).isActive = true
-        equipmentTypeLabel.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        equipmentTypeLabel.bottomAnchor.constraint(equalTo: viewForCell.bottomAnchor, constant: -15).isActive = true
     }
     
     required init?(coder: NSCoder) {

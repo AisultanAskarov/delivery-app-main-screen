@@ -69,9 +69,9 @@ class MenuInteractor: MenuInteractorProtocol {
         itemsNetworkService?.getItemsForCategory(.burgers, completion: { result in
             switch result {
             case let .success(items):
-                print(items)
+                self.presenter?.interactorDidFetchMenuItems(with: .success(items))
             case let .failure(error):
-                print(error.localizedDescription)
+                self.presenter?.interactorDidFetchMenuItems(with: .failure(error))
             }
         })
     }

@@ -10,7 +10,7 @@ import UIKit
 protocol MenuViewProtocol: AnyObject {
     var presenter: MenuPresenterProtocol? { get set }
     func updateCityLabel(_ cityName: String)
-    func update(with users: [MenuItem])
+    func update(with items: ItemsResponse)
     func update(with error: String)
 }
 
@@ -20,9 +20,13 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     
     private let colors = Colors()
     private let categoriesList: [String] =  FoodCategory.allCases.map { $0.listValue }
+    
     private let categoryCellId = "CategoryCell"
     private let adItemCellId = "AdItemCell"
+    private let foodItemCellId = "FoodItemCell"
+    
     private var arrSelectedFilter: IndexPath? = nil
+    private var menuItems: [ItemsResponse] = []
     
     private var cityOptionButton = UIBarButtonItem()
     private var citiesMenu: UIMenu?
@@ -46,7 +50,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor.clear
+        collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = false
         collectionView.bounces = true
         return collectionView
@@ -61,7 +65,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor.clear
+        collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = false
         collectionView.bounces = true
         collectionView.allowsMultipleSelection = false
@@ -70,6 +74,16 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     
     private let foodItemsTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.layer.cornerRadius = 20
+        tableView.clipsToBounds = false
+        tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        tableView.separatorStyle = .singleLine
+        tableView.indicatorStyle = .default
+        tableView.showsVerticalScrollIndicator = true
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.isPagingEnabled = false
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
     
@@ -83,8 +97,11 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     }
     
     //MARK: - Protocol Methods
-    func update(with users: [MenuItem]) {
-        
+    func update(with items: ItemsResponse) {
+        DispatchQueue.main.async {
+            self.menuItems.append(items)
+            self.foodItemsTableView.reloadData()
+        }
     }
     
     func update(with error: String) {
@@ -102,6 +119,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         setupScrollView()
         setupAdsBannerCollectionView()
         setupStickyCategorySelector()
+        setupFoodItemsTableView()
     }
     
     func setupNavigationBar() {
@@ -148,6 +166,21 @@ class MenuViewController: UIViewController, MenuViewProtocol {
             categorySelectorCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categorySelectorCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categorySelectorCollectionView.heightAnchor.constraint(equalToConstant: 34.0)
+        ])
+    }
+    
+    private func setupFoodItemsTableView() {
+        foodItemsTableView.register(FoodItemCell.self, forCellReuseIdentifier: foodItemCellId)
+        foodItemsTableView.delegate = self
+        foodItemsTableView.dataSource = self
+        scrollView.addSubview(foodItemsTableView)
+        
+        foodItemsTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            foodItemsTableView.topAnchor.constraint(equalTo: categorySelectorCollectionView.safeAreaLayoutGuide.bottomAnchor, constant: 20.0),
+            foodItemsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            foodItemsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            foodItemsTableView.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
     
@@ -219,7 +252,6 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     }
 }
 
-
 extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -279,3 +311,25 @@ extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
 }
 
+extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        self.menuItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuItems[section].items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: foodItemCellId, for: indexPath) as! FoodItemCell
+        cell.itemsNameLabel.text = menuItems[indexPath.section].items[indexPath.row].title
+        //Апишка не возвращает ингредиенты(
+        cell.selectionStyle = .none
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 156 }
+        
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { return false }
+}
