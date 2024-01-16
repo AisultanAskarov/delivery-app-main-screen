@@ -145,8 +145,8 @@ extension MenuVCHeaderView: UICollectionViewDelegateFlowLayout, UICollectionView
             }
             else {
                 arrSelectedFilter = indexPath
+                delegate?.categoryButtonTapped(category: categories[indexPath.row])
             }
-            delegate?.categoryButtonTapped(category: categories[indexPath.row])
             collectionView.reloadData()
         }
     }

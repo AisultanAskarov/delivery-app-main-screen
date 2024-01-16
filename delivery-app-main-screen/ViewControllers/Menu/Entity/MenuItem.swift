@@ -20,7 +20,7 @@ public enum FoodCategory: CaseIterable {
     
     var listValue: String {
         switch self {
-        case .burgers: return "Пицца"
+        case .burgers: return "Бургеры"
         case .desserts: return "Десерты"
         case .drinks: return "Напитки"
         case .pizzas: return "Пицца"

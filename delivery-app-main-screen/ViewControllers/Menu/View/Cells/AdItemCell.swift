@@ -11,7 +11,7 @@ class AdItemCell: UICollectionViewCell {
     
     let viewForCell: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 10.0
         
         return view
@@ -20,7 +20,7 @@ class AdItemCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "first_ad")!
-        imageView.backgroundColor = UIColor.clear
+        imageView.backgroundColor = .clear
         imageView.contentMode = .center
         
         return imageView

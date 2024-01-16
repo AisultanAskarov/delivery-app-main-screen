@@ -9,7 +9,6 @@ import UIKit
 
 class MenuModuleAssembler {
     static func assembleModule() -> UIViewController? {
-        // Create the VIPER components
         let router = MenuRouter.start()
         let menuVC = router.entry
         

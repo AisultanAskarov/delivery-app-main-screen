@@ -10,7 +10,7 @@ import UIKit
 protocol MenuViewProtocol: AnyObject {
     var presenter: MenuPresenterProtocol? { get set }
     func updateCityLabel(_ cityName: String)
-    func update(with items: ItemsResponse)
+    func update(with items: [ItemsResponse])
     func update(with error: String)
 }
 
@@ -40,6 +40,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     private var headerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     
@@ -50,29 +51,47 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
 
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.tintColor = .black
+        indicator.backgroundColor = .clear
+        indicator.hidesWhenStopped = true
+        
+        return indicator
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        presenter?.fetchMenuItems()
+        activityIndicator.startAnimating()
+        //Menu Items Are Fetched When Interactor Is Set In MenuPresenter.
     }
     
     //MARK: - Protocol Methods
-    func update(with items: ItemsResponse) {
+    func update(with items: [ItemsResponse]) {
         DispatchQueue.main.async {
-            self.menuItems.append(items)
+            self.activityIndicator.stopAnimating()
+            
+            self.menuItems = items.sorted { (response1, response2) -> Bool in
+                guard let index1 = FoodCategory.allCases.firstIndex(of: response1.category),
+                      let index2 = FoodCategory.allCases.firstIndex(of: response2.category) else {
+                    return false
+                }
+                return index1 < index2
+            }
+            
             self.foodItemsTableView.reloadData()
         }
     }
     
     func update(with error: String) {
-        
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     func updateCityLabel(_ cityName: String) {
@@ -81,7 +100,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     
 }
 
-//MARK: - Layout Functions
+//MARK: - Appearence
 private extension MenuViewController {
     private func configureViews() {
         view.backgroundColor = colors.mainBgColor
@@ -103,6 +122,7 @@ private extension MenuViewController {
         foodItemsTableView.contentOffset = CGPoint(x: 0, y: -(headerViewHeight))
         foodItemsTableView.register(FoodItemCell.self, forCellReuseIdentifier: foodItemCellId)
         view.addSubview(backgroundView)
+        backgroundView.addSubview(activityIndicator)
         view.addSubview(foodItemsTableView)
         
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -111,6 +131,14 @@ private extension MenuViewController {
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: headerViewHeight)
+        ])
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: headerViewHeight),
+            activityIndicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            activityIndicator.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            activityIndicator.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
         foodItemsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -199,21 +227,21 @@ private extension MenuViewController {
 
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2//self.menuItems.count
+        return self.menuItems.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5//menuItems[section].items.count
+        return menuItems[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: foodItemCellId, for: indexPath) as! FoodItemCell
-//        cell.itemsNameLabel.text = menuItems[indexPath.section].items[indexPath.row].title
+        cell.configure(with: menuItems[indexPath.section].items[indexPath.row])
         cell.selectionStyle = .none
-
+        
         let separatorHeight: CGFloat = 1.0
         let separatorView = UIView(frame: CGRect(x: 0, y: cell.bounds.height - separatorHeight, width: cell.bounds.width, height: separatorHeight))
-        separatorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        separatorView.backgroundColor = .lightGray.withAlphaComponent(0.2)
         cell.addSubview(separatorView)
         
         return cell
@@ -273,6 +301,11 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MenuViewController: MenuViewHeaderViewCoordinating {
     func categoryButtonTapped(category: String) {
+        guard let section = FoodCategory.allCases.firstIndex(where: { $0.listValue == category }) else {
+            return
+        }
         
+        let indexPath = IndexPath(row: 0, section: section)
+        foodItemsTableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
 }

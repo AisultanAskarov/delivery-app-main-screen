@@ -66,7 +66,7 @@ class MenuInteractor: MenuInteractorProtocol {
     }
     
     func getMenuItems() {
-        itemsNetworkService?.getItemsForCategory(.burgers, completion: { result in
+        itemsNetworkService?.getAllItems(completion: { result in
             switch result {
             case let .success(items):
                 self.presenter?.interactorDidFetchMenuItems(with: .success(items))

@@ -97,7 +97,7 @@ final class TabBarController: UITabBarController {
                                          selectedImage: TabBarItem.menu.image)
         menuVC.title = menuVC.tabBarItem.title
         menuVC.navigationItem.title = ""
-        menusNav = CustomNavigationController(rootViewController: menuVC)
+        menusNav = NavigationController(rootViewController: menuVC)
     }
     
     private func initializeContactsTab() {
@@ -106,7 +106,7 @@ final class TabBarController: UITabBarController {
                                          image: TabBarItem.contacts.image,
                                          selectedImage: TabBarItem.contacts.image)
         contactsVC.title = contactsVC.tabBarItem.title
-        contactsNav = CustomNavigationController(rootViewController: contactsVC)
+        contactsNav = NavigationController(rootViewController: contactsVC)
     }
     
     private func initializeUserProfileTab() {
@@ -115,7 +115,7 @@ final class TabBarController: UITabBarController {
                                          image: TabBarItem.userProfile.image,
                                          selectedImage: TabBarItem.userProfile.image)
         userProfileVC.title = userProfileVC.tabBarItem.title
-        userProfilesNav = CustomNavigationController(rootViewController: userProfileVC)
+        userProfilesNav = NavigationController(rootViewController: userProfileVC)
     }
     
     private func initializeCartTab() {
@@ -124,7 +124,7 @@ final class TabBarController: UITabBarController {
                                          image: TabBarItem.cart.image,
                                          selectedImage: TabBarItem.cart.image)
         cartVC.title = cartVC.tabBarItem.title
-        cartsNav = CustomNavigationController(rootViewController: cartVC)
+        cartsNav = NavigationController(rootViewController: cartVC)
     }
     
     private func initializeTabs() {

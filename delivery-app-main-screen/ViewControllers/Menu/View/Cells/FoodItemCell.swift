@@ -8,14 +8,28 @@
 import UIKit
 
 class FoodItemCell: UITableViewCell {
-
+    
+    func configure(with item: MenuItem) {
+        itemsNameLabel.text = item.title
+        itemsImageView.setImage(fromURL: item.image)
+    }
+    
     let itemsImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.clear
+        imageView.backgroundColor = .lightGray.withAlphaComponent(0.2)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         
         return imageView
+    }()
+    
+    let circularContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 60.0
+        
+        return view
     }()
     
     let infoContainer: UIView = {
@@ -73,21 +87,35 @@ class FoodItemCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.clear
-        addSubview(itemsImageView)
+        backgroundColor = .clear
+        setupCellLayout()
+        bringSubviewToFront(separatorLine)
+    }
+    
+    //MARK: - Appearence
+    private func setupCellLayout() {
+        addSubview(circularContainer)
+        circularContainer.addSubview(itemsImageView)
         addSubview(infoContainer)
         infoContainer.addSubview(itemsNameLabel)
         infoContainer.addSubview(itemsIngredientsLabel)
         infoContainer.addSubview(purchaseButon)
         addSubview(separatorLine)
         
+        circularContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            circularContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
+            circularContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+            circularContainer.widthAnchor.constraint(equalToConstant: 120.0),
+            circularContainer.heightAnchor.constraint(equalToConstant: 120.0)
+        ])
+        
         itemsImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            itemsImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
-            itemsImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            itemsImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            itemsImageView.widthAnchor.constraint(equalToConstant: 136.0),
-            itemsImageView.heightAnchor.constraint(equalToConstant: 90.0)
+            itemsImageView.centerXAnchor.constraint(equalTo: circularContainer.centerXAnchor),
+            itemsImageView.centerYAnchor.constraint(equalTo: circularContainer.centerYAnchor),
+            itemsImageView.widthAnchor.constraint(equalTo: circularContainer.widthAnchor),
+            itemsImageView.heightAnchor.constraint(equalTo: circularContainer.heightAnchor)
         ])
         
         infoContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -130,12 +158,10 @@ class FoodItemCell: UITableViewCell {
             separatorLine.trailingAnchor.constraint(equalTo: leadingAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1.0)
         ])
-        
-        bringSubviewToFront(separatorLine)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }

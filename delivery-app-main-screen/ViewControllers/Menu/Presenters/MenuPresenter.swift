@@ -19,7 +19,7 @@ protocol MenuPresenterProtocol: AnyObject {
     func updateCityLabelWithStoredValue()
     
     func fetchMenuItems()
-    func interactorDidFetchMenuItems(with result: Result<ItemsResponse, Error>)
+    func interactorDidFetchMenuItems(with result: Result<[ItemsResponse], Error>)
 }
 
 class MenuPresenter: MenuPresenterProtocol {
@@ -58,7 +58,7 @@ class MenuPresenter: MenuPresenterProtocol {
         interactor?.getMenuItems()
     }
     
-    func interactorDidFetchMenuItems(with result: Result<ItemsResponse, Error>) {
+    func interactorDidFetchMenuItems(with result: Result<[ItemsResponse], Error>) {
         switch result {
         case let .success(items):
             view?.update(with: items)

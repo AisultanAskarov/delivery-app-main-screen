@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MenuItemsNetworkServiceProtocol {
-    func getItemsForCategory(_ category: FoodCategory, completion: @escaping (Result<ItemsResponse, Error>) -> Void)
+    func getAllItems(completion: @escaping (Result<[ItemsResponse], Error>) -> Void)
 }
 
 struct ItemsResponse {
@@ -24,11 +24,12 @@ enum Errors: Error {
 final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
     
     private enum Endpoints {
-        //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=0179b66bd7e34ccdbe4289f1e70a1e9d
+        //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=API_KEY
         static func menuItems(for category: FoodCategory) -> String {
             let baseEndpoint = "https://api.spoonacular.com/food/menuItems/search"
             let query = category.queryValue
-            return "\(baseEndpoint)?query=\(query)&apiKey="//0179b66bd7e34ccdbe4289f1e70a1e9d
+            let key = ENV.MENU_ITEMS_API_KEY
+            return "\(baseEndpoint)?query=\(query)&number=7&apiKey=\(key)"
         }
     }
     
@@ -40,7 +41,41 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
         self.jsonDecoder = jsonDecoder
     }
     
-    func getItemsForCategory(_ category: FoodCategory, completion: @escaping (Result<ItemsResponse, Error>) -> Void) {
+    func getAllItems(completion: @escaping (Result<[ItemsResponse], Error>) -> Void) {
+        let dispatchGroup = DispatchGroup()
+        var results: [Result<ItemsResponse, Error>] = []
+        
+        for category in FoodCategory.allCases {
+            dispatchGroup.enter()
+            getItemsForCategory(category) { result in
+                results.append(result)
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            let errors = results.compactMap { result -> Error? in
+                if case let .failure(error) = result {
+                    return error
+                }
+                return nil
+            }
+            
+            if let firstError = errors.first {
+                completion(.failure(firstError))
+            } else {
+                let itemsResponses = results.compactMap { result -> ItemsResponse? in
+                    if case let .success(itemsResponse) = result {
+                        return itemsResponse
+                    }
+                    return nil
+                }
+                completion(.success(itemsResponses))
+            }
+        }
+    }
+    
+    private func getItemsForCategory(_ category: FoodCategory, completion: @escaping (Result<ItemsResponse, Error>) -> Void) {
         guard let url = URL(string: Endpoints.menuItems(for: category)) else {
             completion(.failure(Errors.invalidURL))
             return
