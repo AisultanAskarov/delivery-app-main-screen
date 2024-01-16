@@ -24,11 +24,11 @@ enum Errors: Error {
 final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
     
     private enum Endpoints {
-        //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=77d24e26adb448c5b3a60aeb45e11020
+        //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=0179b66bd7e34ccdbe4289f1e70a1e9d
         static func menuItems(for category: FoodCategory) -> String {
             let baseEndpoint = "https://api.spoonacular.com/food/menuItems/search"
             let query = category.queryValue
-            return "\(baseEndpoint)?query=\(query)&apiKey=77d24e26adb448c5b3a60aeb45e11020"
+            return "\(baseEndpoint)?query=\(query)&apiKey="//0179b66bd7e34ccdbe4289f1e70a1e9d
         }
     }
     

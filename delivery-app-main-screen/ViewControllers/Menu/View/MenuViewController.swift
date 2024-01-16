@@ -14,6 +14,10 @@ protocol MenuViewProtocol: AnyObject {
     func update(with error: String)
 }
 
+protocol MenuViewHeaderViewCoordinating: AnyObject {
+  func categoryButtonTapped(category: String)
+}
+
 class MenuViewController: UIViewController, MenuViewProtocol {
     
     var presenter: MenuPresenterProtocol?
@@ -21,11 +25,8 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     private let colors = Colors()
     private let categoriesList: [String] =  FoodCategory.allCases.map { $0.listValue }
     
-    private let categoryCellId = "CategoryCell"
-    private let adItemCellId = "AdItemCell"
     private let foodItemCellId = "FoodItemCell"
     
-    private var arrSelectedFilter: IndexPath? = nil
     private var menuItems: [ItemsResponse] = []
     
     private var cityOptionButton = UIBarButtonItem()
@@ -33,59 +34,25 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     private var customItem: UIBarButtonItem?
     private var cityLabel: UILabel?
     
-    private let scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.backgroundColor = .clear
-        view.isScrollEnabled = true
+    private var foodItemsTableView = UITableView()
+    private var headerViewHeight: CGFloat = 201.0
+    
+    private var headerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let adsBannerCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 18.5, bottom: 0, right: 18.5)
-        layout.minimumLineSpacing = 18.5
-        layout.estimatedItemSize = .zero
+    private var backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20.0
+        view.clipsToBounds = true
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .clear
-        collectionView.isPagingEnabled = false
-        collectionView.bounces = true
-        return collectionView
-    }()
-    
-    private let categorySelectorCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 18.5, bottom: 0, right: 18.5)
-        layout.minimumLineSpacing = 0
-        layout.estimatedItemSize = .zero
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .clear
-        collectionView.isPagingEnabled = false
-        collectionView.bounces = true
-        collectionView.allowsMultipleSelection = false
-        return collectionView
-    }()
-    
-    private let foodItemsTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .white
-        tableView.layer.cornerRadius = 20
-        tableView.clipsToBounds = false
-        tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        tableView.separatorStyle = .singleLine
-        tableView.indicatorStyle = .default
-        tableView.showsVerticalScrollIndicator = true
-        tableView.showsHorizontalScrollIndicator = false
-        tableView.isPagingEnabled = false
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        return tableView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +60,7 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter?.fetchMenuItems()
+//        presenter?.fetchMenuItems()
     }
     
     //MARK: - Protocol Methods
@@ -112,14 +79,55 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         self.cityLabel?.text = cityName
     }
     
-    //MARK: - Layout Functions
+}
+
+//MARK: - Layout Functions
+private extension MenuViewController {
     private func configureViews() {
         view.backgroundColor = colors.mainBgColor
         setupNavigationBar()
-        setupScrollView()
-        setupAdsBannerCollectionView()
-        setupStickyCategorySelector()
+        layoutHeaderView()
         setupFoodItemsTableView()
+        view.bringSubviewToFront(headerView)
+    }
+    
+    private func setupFoodItemsTableView() {
+        foodItemsTableView = UITableView(frame: CGRect.zero, style: .grouped)
+        foodItemsTableView.delegate = self
+        foodItemsTableView.dataSource = self
+        foodItemsTableView.bounces = false
+        foodItemsTableView.showsVerticalScrollIndicator = false
+        foodItemsTableView.separatorStyle = .none
+        foodItemsTableView.backgroundColor = .clear
+        foodItemsTableView.contentInset = UIEdgeInsets(top: headerViewHeight, left: 0.0, bottom: 0.0, right: 0.0)
+        foodItemsTableView.contentOffset = CGPoint(x: 0, y: -(headerViewHeight))
+        foodItemsTableView.register(FoodItemCell.self, forCellReuseIdentifier: foodItemCellId)
+        view.addSubview(backgroundView)
+        view.addSubview(foodItemsTableView)
+        
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: headerViewHeight),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: headerViewHeight)
+        ])
+        
+        foodItemsTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            foodItemsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            foodItemsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            foodItemsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            foodItemsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func layoutHeaderView() {
+        let tableHeaderView = MenuVCHeaderView(categories: categoriesList)
+        tableHeaderView.delegate = self
+        tableHeaderView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: headerViewHeight - 1)
+        headerView = tableHeaderView
+        view.addSubview(headerView)
     }
     
     func setupNavigationBar() {
@@ -127,69 +135,6 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         customItem = UIBarButtonItem(customView: createCustomNavBarItem())
         presenter?.updateCityLabelWithStoredValue()
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = customItem
-    }
-    
-    func setupScrollView() {
-        view.addSubview(scrollView)
-        
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    private func setupAdsBannerCollectionView() {
-        adsBannerCollectionView.register(AdItemCell.self, forCellWithReuseIdentifier: adItemCellId)
-        adsBannerCollectionView.delegate = self
-        adsBannerCollectionView.dataSource = self
-        scrollView.addSubview(adsBannerCollectionView)
-        
-        adsBannerCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            adsBannerCollectionView.topAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.topAnchor, constant: 15.0),
-            adsBannerCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            adsBannerCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            adsBannerCollectionView.heightAnchor.constraint(equalToConstant: 112.0)
-        ])
-    }
-    
-    private func setupStickyCategorySelector() {
-        categorySelectorCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: categoryCellId)
-        categorySelectorCollectionView.delegate = self
-        categorySelectorCollectionView.dataSource = self
-        scrollView.addSubview(categorySelectorCollectionView)
-        
-        categorySelectorCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            categorySelectorCollectionView.topAnchor.constraint(equalTo: adsBannerCollectionView.safeAreaLayoutGuide.bottomAnchor, constant: 20.0),
-            categorySelectorCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categorySelectorCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categorySelectorCollectionView.heightAnchor.constraint(equalToConstant: 34.0)
-        ])
-    }
-    
-    private func setupFoodItemsTableView() {
-        foodItemsTableView.register(FoodItemCell.self, forCellReuseIdentifier: foodItemCellId)
-        foodItemsTableView.delegate = self
-        foodItemsTableView.dataSource = self
-        scrollView.addSubview(foodItemsTableView)
-        
-        foodItemsTableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            foodItemsTableView.topAnchor.constraint(equalTo: categorySelectorCollectionView.safeAreaLayoutGuide.bottomAnchor, constant: 20.0),
-            foodItemsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            foodItemsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            foodItemsTableView.heightAnchor.constraint(equalToConstant: 500)
-        ])
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateFloatingCategorySelectorPosition()
-    }
-
-    private func updateFloatingCategorySelectorPosition() {
-        
     }
     
     private func createCustomNavBarItem() -> UIView {
@@ -252,84 +197,82 @@ class MenuViewController: UIViewController, MenuViewProtocol {
     }
 }
 
-extension MenuViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if collectionView == adsBannerCollectionView {
-            return 6
-        } else if collectionView == categorySelectorCollectionView {
-            return categoriesList.count
-        }
-        
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if collectionView == adsBannerCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: adItemCellId, for: indexPath) as! AdItemCell
-            return cell
-        } else if collectionView == categorySelectorCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellId, for: indexPath) as! CategoryCell
-            cell.titleLabel.text = categoriesList[indexPath.row]
-            
-            cell.titleLabel.font = arrSelectedFilter == indexPath ? UIFont.systemFont(ofSize: 13.0, weight: .bold) : UIFont.systemFont(ofSize: 13.0, weight: .regular)
-            cell.titleLabel.textColor = arrSelectedFilter == indexPath ? colors.categorySelectedTitleColor : colors.categoryUnSelectedColor
-            cell.titleLabel.backgroundColor = arrSelectedFilter == indexPath ? colors.categorySelectedBgColor : .clear
-            cell.titleLabel.layer.borderColor = arrSelectedFilter == indexPath ? UIColor.clear.cgColor : colors.categoryUnSelectedColor.cgColor
-            
-            return cell
-        }
-        
-        return UICollectionViewCell()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == adsBannerCollectionView {
-            return CGSize(width: 300.0, height: 112.0)
-        } else if collectionView == categorySelectorCollectionView {
-            let label = UILabel(frame: CGRect.zero)
-            label.text = categoriesList[indexPath.item]
-            label.sizeToFit()
-            return CGSize(width: label.frame.width + 40.0, height: 34.0)
-        }
-        
-        return .zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == categorySelectorCollectionView {
-            if arrSelectedFilter == indexPath {
-                arrSelectedFilter = nil
-            }
-            else {
-                arrSelectedFilter = indexPath
-            }
-            
-            collectionView.reloadData()
-        }
-    }
-}
-
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        self.menuItems.count
+        return 2//self.menuItems.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuItems[section].items.count
+        return 5//menuItems[section].items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: foodItemCellId, for: indexPath) as! FoodItemCell
-        cell.itemsNameLabel.text = menuItems[indexPath.section].items[indexPath.row].title
-        //Апишка не возвращает ингредиенты(
+//        cell.itemsNameLabel.text = menuItems[indexPath.section].items[indexPath.row].title
         cell.selectionStyle = .none
 
+        let separatorHeight: CGFloat = 1.0
+        let separatorView = UIView(frame: CGRect(x: 0, y: cell.bounds.height - separatorHeight, width: cell.bounds.width, height: separatorHeight))
+        separatorView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        cell.addSubview(separatorView)
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 156 }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
         
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 156 }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { return false }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let headerViewNavigationBarPinHeight: CGFloat = -70
+        
+        if offset >= -headerViewHeight {
+            var rect = headerView.frame
+            rect.origin.y = -headerViewHeight - (offset > headerViewNavigationBarPinHeight ? headerViewNavigationBarPinHeight : offset)
+            headerView.frame = rect
+        }
+        
+        if offset <= -52 {
+            var backgroundRect = backgroundView.frame
+            backgroundRect.origin.y = -offset
+            
+            backgroundView.frame = backgroundRect
+        } else {
+            var backgroundRect = backgroundView.frame
+            backgroundRect.origin.y = 52
+            
+            backgroundView.frame = backgroundRect
+        }
+        
+        toggleHeaderViewShadow(offset: offset, navigationBarPinHeight: headerViewNavigationBarPinHeight)
+    }
+    
+    private func toggleHeaderViewShadow(offset: CGFloat, navigationBarPinHeight: CGFloat) {
+        if offset > navigationBarPinHeight {
+            headerView.layer.shadowColor = UIColor.black.cgColor
+            headerView.layer.shadowOpacity = 0.1
+            headerView.layer.shadowRadius = 5.0
+            headerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+            headerView.layer.shouldRasterize = true
+            headerView.layer.rasterizationScale = UIScreen.main.scale
+        } else {
+            headerView.layer.shadowOpacity = 0
+            headerView.layer.shadowRadius = 0.0
+        }
+    }
+}
+
+extension MenuViewController: MenuViewHeaderViewCoordinating {
+    func categoryButtonTapped(category: String) {
+        
+    }
 }

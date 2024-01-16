@@ -12,8 +12,21 @@ final class CustomNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.barTintColor = colors.navBarBgColor
-        navigationBar.shadowImage = UIImage()
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        
+        // Set navigation bar appearance
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = colors.mainBgColor
+        appearance.shadowColor = .clear
+        appearance.shadowImage = UIImage()
+        appearance.backgroundImage = UIImage()
+        
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+        
+        // Other configurations
+        navigationBar.isTranslucent = false
+        navigationBar.barStyle = .default
+        
+        setNeedsStatusBarAppearanceUpdate()
     }
 }

@@ -30,6 +30,7 @@
 		2223B6722B54B04100708BFB /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6712B54B04100708BFB /* CategoryCell.swift */; };
 		2223B6742B54B0A300708BFB /* FoodItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6732B54B0A300708BFB /* FoodItemCell.swift */; };
 		2223B6762B54B68400708BFB /* AdItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6752B54B68400708BFB /* AdItemCell.swift */; };
+		22CC10792B55C6ED0050CCC2 /* MenuVCHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		2223B6712B54B04100708BFB /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		2223B6732B54B0A300708BFB /* FoodItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemCell.swift; sourceTree = "<group>"; };
 		2223B6752B54B68400708BFB /* AdItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdItemCell.swift; sourceTree = "<group>"; };
+		22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVCHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				2223B61F2B54385700708BFB /* MenuViewController.swift */,
+				2223B66C2B548A6100708BFB /* MenuItem.swift */,
+				22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */,
 				220CBD5E2B54E42500EC3E27 /* Cells */,
 			);
 			path = View;
@@ -275,7 +279,6 @@
 		2223B66B2B548A4C00708BFB /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				2223B66C2B548A6100708BFB /* MenuItem.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				2223B6642B546A4A00708BFB /* MenuPresenter.swift in Sources */,
 				2223B6682B546A6000708BFB /* MenuRouter.swift in Sources */,
 				2223B6562B5447EF00708BFB /* UserProfileViewController.swift in Sources */,
+				22CC10792B55C6ED0050CCC2 /* MenuVCHeaderView.swift in Sources */,
 				2223B65A2B544E6F00708BFB /* CustomNavigationController.swift in Sources */,
 				2223B6702B548B7900708BFB /* MenuItemsNetworkService.swift in Sources */,
 				2223B61C2B54385700708BFB /* AppDelegate.swift in Sources */,

@@ -70,9 +70,16 @@ final class TabBarController: UITabBarController {
     func updateTabBarAppearance() {
         self.tabBar.tintColor = colors.tabItemActive
         self.tabBar.unselectedItemTintColor = colors.tabItemInActive
-        self.tabBar.backgroundColor = colors.tabBarBgColor
+        self.tabBar.backgroundColor = .white
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: colors.tabItemInActive], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: colors.tabItemActive], for: .selected)
+        
+        self.tabBar.layer.shadowColor = UIColor.black.cgColor
+        self.tabBar.layer.shadowOpacity = 0.1
+        self.tabBar.layer.shadowRadius = 5.0
+        self.tabBar.layer.shadowOffset = CGSize(width: 0, height: 4)
+        self.tabBar.layer.shouldRasterize = true
+        self.tabBar.layer.rasterizationScale = UIScreen.main.scale
     }
     
     // MARK: - Tab Bar Setup
@@ -129,4 +136,18 @@ final class TabBarController: UITabBarController {
         }
     }
     
+}
+
+extension UIImage {
+    static func gradientImageWithBounds(bounds: CGRect, colors: [CGColor]) -> UIImage {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = colors
+        
+        UIGraphicsBeginImageContext(gradientLayer.bounds.size)
+        gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }

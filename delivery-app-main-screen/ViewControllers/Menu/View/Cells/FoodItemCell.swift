@@ -64,6 +64,12 @@ class FoodItemCell: UITableViewCell {
         return button
     }()
     
+    let separatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -73,27 +79,28 @@ class FoodItemCell: UITableViewCell {
         infoContainer.addSubview(itemsNameLabel)
         infoContainer.addSubview(itemsIngredientsLabel)
         infoContainer.addSubview(purchaseButon)
+        addSubview(separatorLine)
         
         itemsImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            itemsImageView.topAnchor.constraint(equalTo: topAnchor),
             itemsImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
-            itemsImageView.heightAnchor.constraint(equalToConstant: 132.0),
-            itemsImageView.widthAnchor.constraint(equalToConstant: 132.0),
-            itemsImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            itemsImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            itemsImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            itemsImageView.widthAnchor.constraint(equalToConstant: 136.0),
+            itemsImageView.heightAnchor.constraint(equalToConstant: 90.0)
         ])
         
         infoContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoContainer.centerYAnchor.constraint(equalTo: itemsImageView.centerYAnchor),
             infoContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
-            infoContainer.leadingAnchor.constraint(equalTo: itemsImageView.trailingAnchor, constant: 20.0),
-            infoContainer.heightAnchor.constraint(equalToConstant: 132.0),
+            infoContainer.leadingAnchor.constraint(equalTo: itemsImageView.trailingAnchor, constant: 10.0),
+            infoContainer.heightAnchor.constraint(equalToConstant: 136.0),
         ])
         
         itemsNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            itemsNameLabel.topAnchor.constraint(equalTo: infoContainer.topAnchor),
+            itemsNameLabel.topAnchor.constraint(equalTo: infoContainer.topAnchor, constant: 5.0),
             itemsNameLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
             itemsNameLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
             itemsNameLabel.heightAnchor.constraint(equalToConstant: 20.0)
@@ -104,18 +111,27 @@ class FoodItemCell: UITableViewCell {
             itemsIngredientsLabel.topAnchor.constraint(equalTo: itemsNameLabel.bottomAnchor, constant: 5.0),
             itemsIngredientsLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
             itemsIngredientsLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
-            itemsIngredientsLabel.heightAnchor.constraint(equalToConstant: 48.0)
+            itemsIngredientsLabel.bottomAnchor.constraint(equalTo: purchaseButon.topAnchor, constant: -5.0),
         ])
         
         purchaseButon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            purchaseButon.topAnchor.constraint(equalTo: itemsIngredientsLabel.bottomAnchor, constant: 10.0),
+            purchaseButon.bottomAnchor.constraint(equalTo: infoContainer.bottomAnchor, constant: -5.0),
             purchaseButon.rightAnchor.constraint(equalTo: infoContainer.rightAnchor),
             purchaseButon.heightAnchor.constraint(equalToConstant: 30.0),
             purchaseButon.widthAnchor.constraint(equalToConstant: 90.0)
         ])
         purchaseButon.layer.cornerRadius = 5
         
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: leadingAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1.0)
+        ])
+        
+        bringSubviewToFront(separatorLine)
     }
     
     required init?(coder: NSCoder) {
