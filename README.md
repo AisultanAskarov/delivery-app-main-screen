@@ -1,6 +1,6 @@
 # 🍕 DeliveryApp's main screen
 
-#### This project is an implementation of a delivery app's main screen with food categories, your city selector, and ad banners. I've built it for learning purposes and to refresh my knowledge of the VIPER pattern. The app focuses on both responsiveness and implementation of business logic. This project has a loading state for menu items and a data caching service to reuse images on the next app launch.
+#### This project is an implementation of a delivery app's main screen with food categories, your city selector, and ad banners. I've built it for learning purposes and to refresh my knowledge of the VIPER pattern. The app focuses on both responsiveness and implementation of business logic. I am currently implementing a loading state for menu items and a data caching service to reuse images.
 #### Tutorial on how to implement this app is in development.
 
 ## 📦 Technologies:
