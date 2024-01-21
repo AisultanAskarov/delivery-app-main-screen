@@ -9,9 +9,9 @@ import UIKit
 
 class FoodItemCell: UITableViewCell {
     
-    func configure(with item: MenuItem) {
-        itemsNameLabel.text = item.title
-        itemsImageView.setImage(fromURL: item.image)
+    func configure(with item: MenuItemModel?) {
+        itemsNameLabel.text = item?.title ?? "Item"
+        itemsImageView.setImage(fromURL: item?.image ?? "")
     }
     
     let itemsImageView: UIImageView = {

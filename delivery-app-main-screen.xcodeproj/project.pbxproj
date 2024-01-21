@@ -11,7 +11,7 @@
 		2223B61C2B54385700708BFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61B2B54385700708BFB /* AppDelegate.swift */; };
 		2223B61E2B54385700708BFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61D2B54385700708BFB /* SceneDelegate.swift */; };
 		2223B6202B54385700708BFB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61F2B54385700708BFB /* MenuViewController.swift */; };
-		2223B6262B54385700708BFB /* delivery_app_main_screen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6242B54385700708BFB /* delivery_app_main_screen.xcdatamodeld */; };
+		2223B6262B54385700708BFB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6242B54385700708BFB /* DataModel.xcdatamodeld */; };
 		2223B6282B54385800708BFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2223B6272B54385800708BFB /* Assets.xcassets */; };
 		2223B62B2B54385800708BFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2223B6292B54385800708BFB /* LaunchScreen.storyboard */; };
 		2223B6512B543D2E00708BFB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6502B543D2E00708BFB /* TabBarController.swift */; };
@@ -33,6 +33,8 @@
 		22CC107B2B561A2C0050CCC2 /* DEBUG-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */; };
 		22CC107D2B561A6E0050CCC2 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC107C2B561A6E0050CCC2 /* Environments.swift */; };
 		22CC107F2B561B550050CCC2 /* PROD-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107E2B561B550050CCC2 /* PROD-Keys.plist */; };
+		22D715792B5BA95E00385F87 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D715782B5BA95E00385F87 /* CoreDataManager.swift */; };
+		22FF5C952B5AD1E4006DEBAE /* CachingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FF5C942B5AD1E4006DEBAE /* CachingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DEBUG-Keys.plist"; sourceTree = "<group>"; };
 		22CC107C2B561A6E0050CCC2 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
 		22CC107E2B561B550050CCC2 /* PROD-Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PROD-Keys.plist"; sourceTree = "<group>"; };
+		22D715782B5BA95E00385F87 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		22FF5C942B5AD1E4006DEBAE /* CachingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,9 @@
 				2223B6502B543D2E00708BFB /* TabBarController.swift */,
 				2223B6592B544E6F00708BFB /* NavigationController.swift */,
 				22CC107C2B561A6E0050CCC2 /* Environments.swift */,
+				22D715B92B5BD2C600385F87 /* CoreData */,
+				22FF5C932B5AD1CE006DEBAE /* CachingServices */,
+				220CBD5F2B54E69700EC3E27 /* NetworkServices */,
 				2223B6522B5447AC00708BFB /* ViewControllers */,
 				2223B65C2B544F8700708BFB /* Colors */,
 				2223B6272B54385800708BFB /* Assets.xcassets */,
@@ -169,7 +176,6 @@
 				2223B62C2B54385800708BFB /* Info.plist */,
 				22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */,
 				22CC107E2B561B550050CCC2 /* PROD-Keys.plist */,
-				2223B6242B54385700708BFB /* delivery_app_main_screen.xcdatamodeld */,
 			);
 			path = "delivery-app-main-screen";
 			sourceTree = "<group>";
@@ -197,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				220CBD6E2B54ED0B00EC3E27 /* Assembler */,
-				2223B66E2B548B6A00708BFB /* Services */,
 				2223B66B2B548A4C00708BFB /* Entity */,
 				220CBD5D2B54D47B00EC3E27 /* View */,
 				220CBD6C2B54ECFB00EC3E27 /* Presenters */,
@@ -239,12 +244,21 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		2223B66E2B548B6A00708BFB /* Services */ = {
+		22D715B92B5BD2C600385F87 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				220CBD5F2B54E69700EC3E27 /* NetworkServices */,
+				22D715782B5BA95E00385F87 /* CoreDataManager.swift */,
+				2223B6242B54385700708BFB /* DataModel.xcdatamodeld */,
 			);
-			path = Services;
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		22FF5C932B5AD1CE006DEBAE /* CachingServices */ = {
+			isa = PBXGroup;
+			children = (
+				22FF5C942B5AD1E4006DEBAE /* CachingService.swift */,
+			);
+			path = CachingServices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,7 +336,7 @@
 				22CC107D2B561A6E0050CCC2 /* Environments.swift in Sources */,
 				220CBD642B54E6D200EC3E27 /* ImageNetworkService.swift in Sources */,
 				2223B6722B54B04100708BFB /* CategoryCell.swift in Sources */,
-				2223B6262B54385700708BFB /* delivery_app_main_screen.xcdatamodeld in Sources */,
+				2223B6262B54385700708BFB /* DataModel.xcdatamodeld in Sources */,
 				2223B65E2B544F9700708BFB /* Colors.swift in Sources */,
 				2223B66D2B548A6100708BFB /* MenuItem.swift in Sources */,
 				2223B6202B54385700708BFB /* MenuViewController.swift in Sources */,
@@ -335,7 +349,9 @@
 				2223B6562B5447EF00708BFB /* UserProfileViewController.swift in Sources */,
 				22CC10792B55C6ED0050CCC2 /* MenuVCHeaderView.swift in Sources */,
 				2223B65A2B544E6F00708BFB /* NavigationController.swift in Sources */,
+				22FF5C952B5AD1E4006DEBAE /* CachingService.swift in Sources */,
 				2223B6702B548B7900708BFB /* MenuItemsNetworkService.swift in Sources */,
+				22D715792B5BA95E00385F87 /* CoreDataManager.swift in Sources */,
 				2223B61C2B54385700708BFB /* AppDelegate.swift in Sources */,
 				2223B6582B5447F800708BFB /* CartViewController.swift in Sources */,
 				2223B6512B543D2E00708BFB /* TabBarController.swift in Sources */,
@@ -571,13 +587,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2223B6242B54385700708BFB /* delivery_app_main_screen.xcdatamodeld */ = {
+		2223B6242B54385700708BFB /* DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				2223B6252B54385700708BFB /* delivery_app_main_screen.xcdatamodel */,
 			);
 			currentVersion = 2223B6252B54385700708BFB /* delivery_app_main_screen.xcdatamodel */;
-			path = delivery_app_main_screen.xcdatamodeld;
+			path = DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
