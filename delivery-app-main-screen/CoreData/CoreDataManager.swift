@@ -119,6 +119,7 @@ class CoreDataManager {
         if context.hasChanges {
             do {
                 try context.save()
+                print("Saved")
             } catch {
                 handle(error)
             }

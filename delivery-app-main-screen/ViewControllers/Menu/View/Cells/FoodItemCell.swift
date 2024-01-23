@@ -11,7 +11,7 @@ class FoodItemCell: UITableViewCell {
     
     func configure(with item: MenuItemModel?) {
         itemsNameLabel.text = item?.title ?? "Item"
-        itemsImageView.setImage(fromURL: item?.image ?? "")
+        itemsImageView.setImage(fromURL: item?.image ?? "", withId: String(item?.id ?? 0))
     }
     
     let itemsImageView: UIImageView = {

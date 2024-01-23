@@ -64,16 +64,32 @@ class MenuViewController: UIViewController, MenuViewProtocol {
         return indicator
     }()
     
+    private lazy var refreshItemsButton: UIButton = {
+       let button = UIButton()
+        button.backgroundColor = .clear
+        button.tintColor = .black
+        button.setImage(UIImage(systemName: "arrow.clockwise", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16.0, weight: .medium)), for: .normal)
+        button.addTarget(self, action: #selector(refreshMenuItems), for: .touchUpInside)
+
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
         activityIndicator.startAnimating()
-        presenter?.fetchMenuItems()
-        //Menu Items Are Fetched When Interactor Is Set In MenuPresenter.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         presenter?.fetchMenuItems()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: refreshItemsButton)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationItem.rightBarButtonItem = nil
     }
     
     //MARK: - Protocol Methods
@@ -174,6 +190,10 @@ private extension MenuViewController {
         customItem = UIBarButtonItem(customView: createCustomNavBarItem())
         presenter?.updateCityLabelWithStoredValue()
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = customItem
+    }
+    
+    @objc private func refreshMenuItems() {
+        presenter?.fetchMenuItems()
     }
     
     private func createCustomNavBarItem() -> UIView {

@@ -17,7 +17,6 @@ enum Errors: Error {
 }
 
 final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
-    
     private enum Endpoints {
         //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=API_KEY
         static func menuItems(for category: FoodCategory) -> String {
@@ -28,12 +27,12 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
         }
     }
     
-    private let coreDataManager: CoreDataManager
+    private let cachingService: CachingService
     private let urlSession: URLSession
     private let jsonDecoder: JSONDecoder
     
-    init(coreDataManager: CoreDataManager = .shared, urlSession: URLSession = .shared, jsonDecoder: JSONDecoder) {
-        self.coreDataManager = coreDataManager
+    init(cachingService: CachingService = .shared, urlSession: URLSession = .shared, jsonDecoder: JSONDecoder) {
+        self.cachingService = cachingService
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
         jsonDecoder.userInfo[.managedObjectContext] = CoreDataManager.shared.context
@@ -76,18 +75,9 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
     private func getItemsForCategory(_ category: FoodCategory, completion: @escaping (Result<[MenuItemModel], Error>) -> Void) {
         let cacheKey = category.queryValue
         
-        //Two-stage caching system. First check quick NSCache, if empty check CoreData, if empty perform URL request.
-        if let cachedResponse = CachingService.shared.loadEntity(forType: cacheKey) {
-            print("Quick Cache not empty")
+        //Two-stage caching system. First checks quick NSCache, if empty checks CoreData, if empty perform URL request.
+        if let cachedResponse = cachingService.loadMenuItems(forType: cacheKey) {
             completion(.success(cachedResponse))
-            return
-        }
-
-        let cachedEntities = coreDataManager.fetch(entityType: MenuItem.self, predicate: NSPredicate(format: "type == %@", category.queryValue))
-
-        if !cachedEntities.isEmpty {
-            print("CoreData Cache not empty")
-            completion(.success(convertToMenuItemModels(from: cachedEntities)))
             return
         }
 
@@ -96,16 +86,15 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
             return
         }
 
-        let request = urlSession.dataTask(with: URLRequest(url: url)) { [jsonDecoder] data, response, error in
+        let request = urlSession.dataTask(with: URLRequest(url: url)) { [jsonDecoder, cachingService] data, response, error in
             switch (data, error) {
             case let (.some(data), nil):
                 do {
+                    print("Fetched Menu Item")
                     var menuItemsResponse = try jsonDecoder.decode(MenuItemsResponseModel.self, from: data)
                     menuItemsResponse.type = category.queryValue
-
-                    CachingService.shared.cacheEntity(menuItemsResponse.menuItems, ofType: category)
-                    self.convertToMenuItemEntity(from: menuItemsResponse.menuItems)
-
+                    cachingService.cacheMenuItems(menuItemsResponse.menuItems, ofType: category)
+                    
                     completion(.success(menuItemsResponse.menuItems))
                 } catch {
                     print("error: \(error)")
@@ -119,43 +108,5 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
         }
 
         request.resume()
-    }
-    
-    func convertToMenuItemModels(from coreDataEntities: [MenuItem]) -> [MenuItemModel] {
-        let menuItemModels = coreDataEntities.map { coreDataEntity -> MenuItemModel in
-            let servingsModel = ServingsModel(number: coreDataEntity.servings?.number ?? 0.0,
-                                              size: coreDataEntity.servings?.size ?? 0.0,
-                                              unit: coreDataEntity.servings?.unit ?? "")
-            
-            return MenuItemModel( id: Int(coreDataEntity.id),
-                                 title: coreDataEntity.title ?? "",
-                                 restaurantChain: coreDataEntity.restaurantChain ?? "",
-                                 image: coreDataEntity.image ?? "",
-                                 imageType: coreDataEntity.imageType ?? "",
-                                 servings: servingsModel,
-                                 type: coreDataEntity.type)
-        }
-
-        return menuItemModels
-    }
-    
-    func convertToMenuItemEntity(from models: [MenuItemModel]) {
-        for model in models {
-            let servings = coreDataManager.create(entityType: Servings.self)
-            servings?.number = model.servings.number
-            servings?.size = model.servings.size ?? 0.0
-            servings?.unit = model.servings.unit ?? ""
-            
-            let menuItem = coreDataManager.create(entityType: MenuItem.self)
-            menuItem?.id = Int32(model.id)
-            menuItem?.title = model.title
-            menuItem?.restaurantChain = model.restaurantChain
-            menuItem?.image = model.image
-            menuItem?.imageType = model.imageType
-            menuItem?.servings = servings
-            menuItem?.type = model.type
-
-            coreDataManager.saveContext()
-        }
     }
 }
