@@ -9,10 +9,46 @@ import UIKit
 
 class FoodItemCell: UITableViewCell {
     
+    var isLoading: Bool = true {
+        didSet {
+            updateLoadingState()
+        }
+    }
+    
     func configure(with item: MenuItemModel?) {
+        isLoading = false
         itemsNameLabel.text = item?.title ?? "Item"
         itemsImageView.setImage(fromURL: item?.image ?? "", withId: String(item?.id ?? 0))
     }
+    
+    private func updateLoadingState() {
+        if isLoading {
+            itemsImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+            itemsImageView.layer.cornerRadius = 10.0
+            
+            itemsNameLabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+            itemsNameLabel.layer.cornerRadius = 10.0
+            
+            itemsIngredientsLabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+            itemsIngredientsLabel.layer.cornerRadius = 10.0
+            
+            purchaseButon.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+            purchaseButon.layer.cornerRadius = 10.0
+        } else {
+            itemsImageView.backgroundColor = .clear
+            itemsImageView.layer.cornerRadius = 0.0
+            
+            itemsNameLabel.backgroundColor = .clear
+            itemsNameLabel.layer.cornerRadius = 0.0
+            
+            itemsIngredientsLabel.backgroundColor = .clear
+            itemsIngredientsLabel.layer.cornerRadius = 0.0
+            
+            purchaseButon.backgroundColor = .clear
+            purchaseButon.layer.cornerRadius = 5.0
+        }
+    }
+    
     
     let itemsImageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,11 +59,11 @@ class FoodItemCell: UITableViewCell {
         return imageView
     }()
     
-    let circularContainer: UIView = {
+    let roundedContainer: UIView = {
         let view = UIView()
-        view.backgroundColor = .clear
+        view.backgroundColor = .lightGray.withAlphaComponent(0.2)
         view.clipsToBounds = true
-        view.layer.cornerRadius = 60.0
+        view.layer.cornerRadius = 10.0
         
         return view
     }()
@@ -43,7 +79,6 @@ class FoodItemCell: UITableViewCell {
     let itemsNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
-        label.text = "Ветчина и грибы"
         label.textColor = .black
         label.backgroundColor = .clear
         label.textAlignment = .left
@@ -94,28 +129,28 @@ class FoodItemCell: UITableViewCell {
     
     //MARK: - Appearence
     private func setupCellLayout() {
-        addSubview(circularContainer)
-        circularContainer.addSubview(itemsImageView)
+        addSubview(roundedContainer)
+        roundedContainer.addSubview(itemsImageView)
         addSubview(infoContainer)
         infoContainer.addSubview(itemsNameLabel)
         infoContainer.addSubview(itemsIngredientsLabel)
         infoContainer.addSubview(purchaseButon)
         addSubview(separatorLine)
         
-        circularContainer.translatesAutoresizingMaskIntoConstraints = false
+        roundedContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            circularContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
-            circularContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
-            circularContainer.widthAnchor.constraint(equalToConstant: 120.0),
-            circularContainer.heightAnchor.constraint(equalToConstant: 120.0)
+            roundedContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
+            roundedContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
+            roundedContainer.widthAnchor.constraint(equalToConstant: 120.0),
+            roundedContainer.heightAnchor.constraint(equalToConstant: 120.0)
         ])
         
         itemsImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            itemsImageView.centerXAnchor.constraint(equalTo: circularContainer.centerXAnchor),
-            itemsImageView.centerYAnchor.constraint(equalTo: circularContainer.centerYAnchor),
-            itemsImageView.widthAnchor.constraint(equalTo: circularContainer.widthAnchor),
-            itemsImageView.heightAnchor.constraint(equalTo: circularContainer.heightAnchor)
+            itemsImageView.centerXAnchor.constraint(equalTo: roundedContainer.centerXAnchor),
+            itemsImageView.centerYAnchor.constraint(equalTo: roundedContainer.centerYAnchor),
+            itemsImageView.widthAnchor.constraint(equalTo: roundedContainer.widthAnchor),
+            itemsImageView.heightAnchor.constraint(equalTo: roundedContainer.heightAnchor)
         ])
         
         infoContainer.translatesAutoresizingMaskIntoConstraints = false

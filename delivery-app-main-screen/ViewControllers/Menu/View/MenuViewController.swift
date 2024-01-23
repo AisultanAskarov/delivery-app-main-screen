@@ -193,6 +193,7 @@ private extension MenuViewController {
     }
     
     @objc private func refreshMenuItems() {
+        activityIndicator.startAnimating()
         presenter?.fetchMenuItems()
     }
     
@@ -270,10 +271,13 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: menuItems[indexPath.section][indexPath.row])
         cell.selectionStyle = .none
         
-        let separatorHeight: CGFloat = 1.0
-        let separatorView = UIView(frame: CGRect(x: 0, y: cell.bounds.height - separatorHeight, width: cell.bounds.width, height: separatorHeight))
-        separatorView.backgroundColor = .lightGray.withAlphaComponent(0.2)
-        cell.addSubview(separatorView)
+        let lastItemId = menuItems[menuItems.count - 1][menuItems[menuItems.count - 1].count - 1].id
+        if menuItems[indexPath.section][indexPath.row].id != lastItemId {
+            let separatorHeight: CGFloat = 1.0
+            let separatorView = UIView(frame: CGRect(x: 0, y: cell.bounds.height - separatorHeight, width: cell.bounds.width, height: separatorHeight))
+            separatorView.backgroundColor = .lightGray.withAlphaComponent(0.2)
+            cell.addSubview(separatorView)
+        }
         
         return cell
     }

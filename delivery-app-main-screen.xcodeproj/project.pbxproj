@@ -29,6 +29,7 @@
 		2223B6722B54B04100708BFB /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6712B54B04100708BFB /* CategoryCell.swift */; };
 		2223B6742B54B0A300708BFB /* FoodItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6732B54B0A300708BFB /* FoodItemCell.swift */; };
 		2223B6762B54B68400708BFB /* AdItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6752B54B68400708BFB /* AdItemCell.swift */; };
+		225477902B5FCC2E005C5CC8 /* ShimmerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */; };
 		22CC10792B55C6ED0050CCC2 /* MenuVCHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */; };
 		22CC107B2B561A2C0050CCC2 /* DEBUG-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */; };
 		22CC107D2B561A6E0050CCC2 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC107C2B561A6E0050CCC2 /* Environments.swift */; };
@@ -62,6 +63,7 @@
 		2223B6712B54B04100708BFB /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		2223B6732B54B0A300708BFB /* FoodItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemCell.swift; sourceTree = "<group>"; };
 		2223B6752B54B68400708BFB /* AdItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdItemCell.swift; sourceTree = "<group>"; };
+		2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerEffect.swift; sourceTree = "<group>"; };
 		22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVCHeaderView.swift; sourceTree = "<group>"; };
 		22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DEBUG-Keys.plist"; sourceTree = "<group>"; };
 		22CC107C2B561A6E0050CCC2 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				22FF5C932B5AD1CE006DEBAE /* CachingServices */,
 				220CBD5F2B54E69700EC3E27 /* NetworkServices */,
 				2223B6522B5447AC00708BFB /* ViewControllers */,
+				2254778E2B5FCC21005C5CC8 /* Helpers */,
 				2223B65C2B544F8700708BFB /* Colors */,
 				2223B6272B54385800708BFB /* Assets.xcassets */,
 				2223B6292B54385800708BFB /* LaunchScreen.storyboard */,
@@ -242,6 +245,14 @@
 				2223B66C2B548A6100708BFB /* MenuItem.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		2254778E2B5FCC21005C5CC8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		22D715B92B5BD2C600385F87 /* CoreData */ = {
@@ -337,6 +348,7 @@
 				220CBD642B54E6D200EC3E27 /* ImageNetworkService.swift in Sources */,
 				2223B6722B54B04100708BFB /* CategoryCell.swift in Sources */,
 				2223B6262B54385700708BFB /* DataModel.xcdatamodeld in Sources */,
+				225477902B5FCC2E005C5CC8 /* ShimmerEffect.swift in Sources */,
 				2223B65E2B544F9700708BFB /* Colors.swift in Sources */,
 				2223B66D2B548A6100708BFB /* MenuItem.swift in Sources */,
 				2223B6202B54385700708BFB /* MenuViewController.swift in Sources */,
