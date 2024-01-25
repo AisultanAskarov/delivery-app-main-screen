@@ -17,5 +17,5 @@
 
 To run the project on your device, follow these steps:
 
-* I haven't optimized the layout for all screen sizes, so I advise using the iPhone 15 Pro simulator.
+* Clone the repository.
 * This project doesn't use any third-party libraries, so just build it and it should work.
