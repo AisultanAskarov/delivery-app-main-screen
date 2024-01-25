@@ -29,13 +29,55 @@
 		2223B6722B54B04100708BFB /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6712B54B04100708BFB /* CategoryCell.swift */; };
 		2223B6742B54B0A300708BFB /* FoodItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6732B54B0A300708BFB /* FoodItemCell.swift */; };
 		2223B6762B54B68400708BFB /* AdItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6752B54B68400708BFB /* AdItemCell.swift */; };
+		225477902B5FCC2E005C5CC8 /* ShimmerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */; };
 		22CC10792B55C6ED0050CCC2 /* MenuVCHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */; };
 		22CC107B2B561A2C0050CCC2 /* DEBUG-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */; };
 		22CC107D2B561A6E0050CCC2 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC107C2B561A6E0050CCC2 /* Environments.swift */; };
 		22CC107F2B561B550050CCC2 /* PROD-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107E2B561B550050CCC2 /* PROD-Keys.plist */; };
+		22D169612B60F7BF00E19ED9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D169602B60F7BF00E19ED9 /* Constants.swift */; };
+		22D169792B6110DB00E19ED9 /* CachingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D169782B6110DB00E19ED9 /* CachingServiceTests.swift */; };
+		22D1697D2B61115600E19ED9 /* CachingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FF5C942B5AD1E4006DEBAE /* CachingService.swift */; };
+		22D1697E2B61117300E19ED9 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D715782B5BA95E00385F87 /* CoreDataManager.swift */; };
+		22D1697F2B61117600E19ED9 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6242B54385700708BFB /* DataModel.xcdatamodeld */; };
+		22D169802B61117900E19ED9 /* MenuItemsNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B66F2B548B7900708BFB /* MenuItemsNetworkService.swift */; };
+		22D169812B61117B00E19ED9 /* ImageNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220CBD632B54E6D200EC3E27 /* ImageNetworkService.swift */; };
+		22D169822B61119800E19ED9 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B66C2B548A6100708BFB /* MenuItem.swift */; };
+		22D169852B61130C00E19ED9 /* DEBUG-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */; };
+		22D169862B61130D00E19ED9 /* PROD-Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22CC107E2B561B550050CCC2 /* PROD-Keys.plist */; };
+		22D169872B61131300E19ED9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61B2B54385700708BFB /* AppDelegate.swift */; };
+		22D169882B61134500E19ED9 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC107C2B561A6E0050CCC2 /* Environments.swift */; };
+		22D169892B61135600E19ED9 /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6652B546A5B00708BFB /* MenuInteractor.swift */; };
+		22D1698A2B61136500E19ED9 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6632B546A4A00708BFB /* MenuPresenter.swift */; };
+		22D1698B2B61138200E19ED9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B61F2B54385700708BFB /* MenuViewController.swift */; };
+		22D1698C2B61138500E19ED9 /* MenuVCHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */; };
+		22D1698D2B61138900E19ED9 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6712B54B04100708BFB /* CategoryCell.swift */; };
+		22D1698E2B61138900E19ED9 /* AdItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6752B54B68400708BFB /* AdItemCell.swift */; };
+		22D1698F2B61138900E19ED9 /* FoodItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6732B54B0A300708BFB /* FoodItemCell.swift */; };
+		22D169902B61139100E19ED9 /* MenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6672B546A6000708BFB /* MenuRouter.swift */; };
+		22D169912B61139B00E19ED9 /* MenuModuleAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B6692B5472D300708BFB /* MenuModuleAssembler.swift */; };
+		22D169922B6113AD00E19ED9 /* ShimmerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */; };
+		22D169932B6113AF00E19ED9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D169602B60F7BF00E19ED9 /* Constants.swift */; };
+		22D169942B6113B800E19ED9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2223B65D2B544F9700708BFB /* Colors.swift */; };
+		22D169962B61188F00E19ED9 /* MenuItemsNetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D169952B61188F00E19ED9 /* MenuItemsNetworkServiceTests.swift */; };
 		22D715792B5BA95E00385F87 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D715782B5BA95E00385F87 /* CoreDataManager.swift */; };
+		22FEC45F2B62BBDF0051F70D /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FEC45E2B62BBDF0051F70D /* URLSession.swift */; };
+		22FEC4602B62C0170051F70D /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FEC45E2B62BBDF0051F70D /* URLSession.swift */; };
+		22FEC4642B62E63E0051F70D /* MockCachingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FEC4632B62E63E0051F70D /* MockCachingService.swift */; };
+		22FEC4662B62E7CE0051F70D /* ImageNetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FEC4652B62E7CE0051F70D /* ImageNetworkServiceTests.swift */; };
+		22FEC4682B62E85E0051F70D /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FEC4672B62E85E0051F70D /* MockURLSession.swift */; };
+		22FEC4692B62E8690051F70D /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FEC4672B62E85E0051F70D /* MockURLSession.swift */; };
 		22FF5C952B5AD1E4006DEBAE /* CachingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FF5C942B5AD1E4006DEBAE /* CachingService.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22D1696F2B61102C00E19ED9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2223B6102B54385700708BFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2223B6172B54385700708BFB;
+			remoteInfo = "delivery-app-main-screen";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		220CBD632B54E6D200EC3E27 /* ImageNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkService.swift; sourceTree = "<group>"; };
@@ -62,16 +104,33 @@
 		2223B6712B54B04100708BFB /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		2223B6732B54B0A300708BFB /* FoodItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemCell.swift; sourceTree = "<group>"; };
 		2223B6752B54B68400708BFB /* AdItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdItemCell.swift; sourceTree = "<group>"; };
+		2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerEffect.swift; sourceTree = "<group>"; };
 		22CC10782B55C6ED0050CCC2 /* MenuVCHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVCHeaderView.swift; sourceTree = "<group>"; };
 		22CC107A2B561A2C0050CCC2 /* DEBUG-Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DEBUG-Keys.plist"; sourceTree = "<group>"; };
 		22CC107C2B561A6E0050CCC2 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
 		22CC107E2B561B550050CCC2 /* PROD-Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PROD-Keys.plist"; sourceTree = "<group>"; };
+		22D169602B60F7BF00E19ED9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		22D1696B2B61102C00E19ED9 /* delivery-app-main-screenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "delivery-app-main-screenTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22D169782B6110DB00E19ED9 /* CachingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingServiceTests.swift; sourceTree = "<group>"; };
+		22D1697B2B61112800E19ED9 /* delivery-app-main-screenTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "delivery-app-main-screenTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		22D169952B61188F00E19ED9 /* MenuItemsNetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemsNetworkServiceTests.swift; sourceTree = "<group>"; };
 		22D715782B5BA95E00385F87 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		22FEC45E2B62BBDF0051F70D /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		22FEC4632B62E63E0051F70D /* MockCachingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCachingService.swift; sourceTree = "<group>"; };
+		22FEC4652B62E7CE0051F70D /* ImageNetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkServiceTests.swift; sourceTree = "<group>"; };
+		22FEC4672B62E85E0051F70D /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		22FF5C942B5AD1E4006DEBAE /* CachingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2223B6152B54385700708BFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22D169682B61102C00E19ED9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -104,6 +163,7 @@
 		220CBD5F2B54E69700EC3E27 /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
+				22FEC45E2B62BBDF0051F70D /* URLSession.swift */,
 				2223B66F2B548B7900708BFB /* MenuItemsNetworkService.swift */,
 				220CBD632B54E6D200EC3E27 /* ImageNetworkService.swift */,
 			);
@@ -146,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				2223B61A2B54385700708BFB /* delivery-app-main-screen */,
+				22D1696C2B61102C00E19ED9 /* delivery-app-main-screenTests */,
 				2223B6192B54385700708BFB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -154,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				2223B6182B54385700708BFB /* delivery-app-main-screen.app */,
+				22D1696B2B61102C00E19ED9 /* delivery-app-main-screenTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,6 +232,7 @@
 				22FF5C932B5AD1CE006DEBAE /* CachingServices */,
 				220CBD5F2B54E69700EC3E27 /* NetworkServices */,
 				2223B6522B5447AC00708BFB /* ViewControllers */,
+				2254778E2B5FCC21005C5CC8 /* Helpers */,
 				2223B65C2B544F8700708BFB /* Colors */,
 				2223B6272B54385800708BFB /* Assets.xcassets */,
 				2223B6292B54385800708BFB /* LaunchScreen.storyboard */,
@@ -244,6 +307,28 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		2254778E2B5FCC21005C5CC8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2254778F2B5FCC2E005C5CC8 /* ShimmerEffect.swift */,
+				22D169602B60F7BF00E19ED9 /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		22D1696C2B61102C00E19ED9 /* delivery-app-main-screenTests */ = {
+			isa = PBXGroup;
+			children = (
+				22FEC4672B62E85E0051F70D /* MockURLSession.swift */,
+				22FEC4632B62E63E0051F70D /* MockCachingService.swift */,
+				22D169782B6110DB00E19ED9 /* CachingServiceTests.swift */,
+				22D169952B61188F00E19ED9 /* MenuItemsNetworkServiceTests.swift */,
+				22FEC4652B62E7CE0051F70D /* ImageNetworkServiceTests.swift */,
+				22D1697B2B61112800E19ED9 /* delivery-app-main-screenTests-Bridging-Header.h */,
+			);
+			path = "delivery-app-main-screenTests";
+			sourceTree = "<group>";
+		};
 		22D715B92B5BD2C600385F87 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +366,24 @@
 			productReference = 2223B6182B54385700708BFB /* delivery-app-main-screen.app */;
 			productType = "com.apple.product-type.application";
 		};
+		22D1696A2B61102C00E19ED9 /* delivery-app-main-screenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22D169712B61102C00E19ED9 /* Build configuration list for PBXNativeTarget "delivery-app-main-screenTests" */;
+			buildPhases = (
+				22D169672B61102C00E19ED9 /* Sources */,
+				22D169682B61102C00E19ED9 /* Frameworks */,
+				22D169692B61102C00E19ED9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22D169702B61102C00E19ED9 /* PBXTargetDependency */,
+			);
+			name = "delivery-app-main-screenTests";
+			productName = "delivery-app-main-screenTests";
+			productReference = 22D1696B2B61102C00E19ED9 /* delivery-app-main-screenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -293,6 +396,11 @@
 				TargetAttributes = {
 					2223B6172B54385700708BFB = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					22D1696A2B61102C00E19ED9 = {
+						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
+						TestTargetID = 2223B6172B54385700708BFB;
 					};
 				};
 			};
@@ -310,6 +418,7 @@
 			projectRoot = "";
 			targets = (
 				2223B6172B54385700708BFB /* delivery-app-main-screen */,
+				22D1696A2B61102C00E19ED9 /* delivery-app-main-screenTests */,
 			);
 		};
 /* End PBXProject section */
@@ -326,6 +435,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22D169692B61102C00E19ED9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D169852B61130C00E19ED9 /* DEBUG-Keys.plist in Resources */,
+				22D169862B61130D00E19ED9 /* PROD-Keys.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -337,6 +455,9 @@
 				220CBD642B54E6D200EC3E27 /* ImageNetworkService.swift in Sources */,
 				2223B6722B54B04100708BFB /* CategoryCell.swift in Sources */,
 				2223B6262B54385700708BFB /* DataModel.xcdatamodeld in Sources */,
+				22FEC4692B62E8690051F70D /* MockURLSession.swift in Sources */,
+				225477902B5FCC2E005C5CC8 /* ShimmerEffect.swift in Sources */,
+				22FEC45F2B62BBDF0051F70D /* URLSession.swift in Sources */,
 				2223B65E2B544F9700708BFB /* Colors.swift in Sources */,
 				2223B66D2B548A6100708BFB /* MenuItem.swift in Sources */,
 				2223B6202B54385700708BFB /* MenuViewController.swift in Sources */,
@@ -357,10 +478,52 @@
 				2223B6512B543D2E00708BFB /* TabBarController.swift in Sources */,
 				2223B61E2B54385700708BFB /* SceneDelegate.swift in Sources */,
 				2223B6542B5447DD00708BFB /* ContactsViewController.swift in Sources */,
+				22D169612B60F7BF00E19ED9 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22D169672B61102C00E19ED9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D169872B61131300E19ED9 /* AppDelegate.swift in Sources */,
+				22D169822B61119800E19ED9 /* MenuItem.swift in Sources */,
+				22FEC4602B62C0170051F70D /* URLSession.swift in Sources */,
+				22FEC4642B62E63E0051F70D /* MockCachingService.swift in Sources */,
+				22D169812B61117B00E19ED9 /* ImageNetworkService.swift in Sources */,
+				22D169902B61139100E19ED9 /* MenuRouter.swift in Sources */,
+				22D1698D2B61138900E19ED9 /* CategoryCell.swift in Sources */,
+				22D1698F2B61138900E19ED9 /* FoodItemCell.swift in Sources */,
+				22D1698A2B61136500E19ED9 /* MenuPresenter.swift in Sources */,
+				22D1697E2B61117300E19ED9 /* CoreDataManager.swift in Sources */,
+				22D169922B6113AD00E19ED9 /* ShimmerEffect.swift in Sources */,
+				22D1697F2B61117600E19ED9 /* DataModel.xcdatamodeld in Sources */,
+				22D169962B61188F00E19ED9 /* MenuItemsNetworkServiceTests.swift in Sources */,
+				22D169942B6113B800E19ED9 /* Colors.swift in Sources */,
+				22D169892B61135600E19ED9 /* MenuInteractor.swift in Sources */,
+				22D1698B2B61138200E19ED9 /* MenuViewController.swift in Sources */,
+				22D169912B61139B00E19ED9 /* MenuModuleAssembler.swift in Sources */,
+				22D1698C2B61138500E19ED9 /* MenuVCHeaderView.swift in Sources */,
+				22FEC4682B62E85E0051F70D /* MockURLSession.swift in Sources */,
+				22D169802B61117900E19ED9 /* MenuItemsNetworkService.swift in Sources */,
+				22D169932B6113AF00E19ED9 /* Constants.swift in Sources */,
+				22D169882B61134500E19ED9 /* Environments.swift in Sources */,
+				22D1698E2B61138900E19ED9 /* AdItemCell.swift in Sources */,
+				22D169792B6110DB00E19ED9 /* CachingServiceTests.swift in Sources */,
+				22D1697D2B61115600E19ED9 /* CachingService.swift in Sources */,
+				22FEC4662B62E7CE0051F70D /* ImageNetworkServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22D169702B61102C00E19ED9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2223B6172B54385700708BFB /* delivery-app-main-screen */;
+			targetProxy = 22D1696F2B61102C00E19ED9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2223B6292B54385800708BFB /* LaunchScreen.storyboard */ = {
@@ -563,6 +726,57 @@
 			};
 			name = Release;
 		};
+		22D169722B61102C00E19ED9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARMKSND23;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screenTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "delivery-app-main-screenTests/delivery-app-main-screenTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/delivery-app-main-screen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/delivery-app-main-screen";
+			};
+			name = Debug;
+		};
+		22D169732B61102C00E19ED9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9ARMKSND23;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "aisultan.delivery-app-main-screenTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "delivery-app-main-screenTests/delivery-app-main-screenTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/delivery-app-main-screen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/delivery-app-main-screen";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -580,6 +794,15 @@
 			buildConfigurations = (
 				2223B6462B54385800708BFB /* Debug */,
 				2223B6472B54385800708BFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22D169712B61102C00E19ED9 /* Build configuration list for PBXNativeTarget "delivery-app-main-screenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22D169722B61102C00E19ED9 /* Debug */,
+				22D169732B61102C00E19ED9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

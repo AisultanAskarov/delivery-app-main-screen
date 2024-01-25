@@ -12,10 +12,10 @@ protocol ImageNetworkServiceProtocol {
 }
 
 final class ImageNetworkService: ImageNetworkServiceProtocol {
-    private let cachingService: CachingService
-    private let urlSession: URLSession
+    private let cachingService: CachingServiceProtocol
+    private var urlSession: URLSessionProtocol
 
-    init(cachingService: CachingService = .shared, urlSession: URLSession = .shared) {
+    init(cachingService: CachingServiceProtocol = CachingService.shared, urlSession: URLSessionProtocol = URLSessionWrapper()) {
         self.cachingService = cachingService
         self.urlSession = urlSession
     }

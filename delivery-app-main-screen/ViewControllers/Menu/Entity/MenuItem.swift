@@ -5,41 +5,33 @@
 //  Created by Aisultan Askarov on 15.01.2024.
 //
 
-///https://api.spoonacular.com/food/menuItems/search?query=burger&number=2
-
 import Foundation
 import CoreData
 
 public enum FoodCategory: CaseIterable {
     case burgers
-//    case desserts
-//    case drinks
-//    case pizzas
-//    case salads
-//    case steaks
-//    case ramen
+    case desserts
+    case drinks
+    case pizzas
+    case salads
     
     var listValue: String {
         switch self {
         case .burgers: return "Бургеры"
-//        case .desserts: return "Десерты"
-//        case .drinks: return "Напитки"
-//        case .pizzas: return "Пицца"
-//        case .salads: return "Салаты"
-//        case .steaks: return "Стейки"
-//        case .ramen: return "Рамен"
+        case .desserts: return "Десерты"
+        case .drinks: return "Напитки"
+        case .pizzas: return "Пицца"
+        case .salads: return "Салаты"
         }
     }
     
     var queryValue: String {
         switch self {
         case .burgers: return "burger"
-//        case .desserts: return "dessert"
-//        case .drinks: return "drink"
-//        case .pizzas: return "pizza"
-//        case .salads: return "salad"
-//        case .steaks: return "steak"
-//        case .ramen: return "ramen"
+        case .desserts: return "dessert"
+        case .drinks: return "drink"
+        case .pizzas: return "pizza"
+        case .salads: return "salad"
         }
     }
 }
@@ -50,7 +42,7 @@ struct MenuItemsResponseModel: Decodable {
     let offset: Int
     let number: Int
     let totalMenuItems: Int
-    let processingTimeMs: Int
+    let processingTimeMs: Int?
     
     init(type: String, menuItems: [MenuItemModel], offset: Int = 0, number: Int = 0, totalMenuItems: Int = 0, processingTimeMs: Int = 0) {
         self.type = type

@@ -11,11 +11,6 @@ protocol MenuItemsNetworkServiceProtocol {
     func getAllItems(completion: @escaping (Result<[[MenuItemModel]], Error>) -> Void)
 }
 
-enum Errors: Error {
-    case invalidURL
-    case invalidState
-}
-
 final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
     private enum Endpoints {
         //https://api.spoonacular.com/food/menuItems/search?query=burger&apiKey=API_KEY
@@ -27,11 +22,11 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
         }
     }
     
-    private let cachingService: CachingService
-    private let urlSession: URLSession
+    private let cachingService: CachingServiceProtocol
+    private var urlSession: URLSessionProtocol
     private let jsonDecoder: JSONDecoder
     
-    init(cachingService: CachingService = .shared, urlSession: URLSession = .shared, jsonDecoder: JSONDecoder) {
+    init(cachingService: CachingServiceProtocol = CachingService.shared, urlSession: URLSessionProtocol = URLSessionWrapper(), jsonDecoder: JSONDecoder) {
         self.cachingService = cachingService
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
@@ -40,7 +35,7 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
     
     func getAllItems(completion: @escaping (Result<[[MenuItemModel]], Error>) -> Void) {
         let dispatchGroup = DispatchGroup()
-        var results: [Result<[MenuItemModel], Error>] = []
+        var results: [Result<MenuItemsResponseModel, Error>] = []
         
         for category in FoodCategory.allCases {
             dispatchGroup.enter()
@@ -63,7 +58,8 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
             } else {
                 let itemsResponses = results.compactMap { result -> [MenuItemModel]? in
                     if case let .success(itemsResponse) = result {
-                        return itemsResponse
+                        self.cachingService.cacheMenuItems(itemsResponse.menuItems, ofType: itemsResponse.type)
+                        return itemsResponse.menuItems
                     }
                     return nil
                 }
@@ -72,12 +68,13 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
         }
     }
     
-    private func getItemsForCategory(_ category: FoodCategory, completion: @escaping (Result<[MenuItemModel], Error>) -> Void) {
+    func getItemsForCategory(_ category: FoodCategory, completion: @escaping (Result<MenuItemsResponseModel, Error>) -> Void) {
         let cacheKey = category.queryValue
         
         //Two-stage caching system. First checks quick NSCache, if empty checks CoreData, if empty perform URL request.
         if let cachedResponse = cachingService.loadMenuItems(forType: cacheKey) {
-            completion(.success(cachedResponse))
+            let menuItemsResponse = MenuItemsResponseModel(type: category.queryValue, menuItems: cachedResponse)
+            completion(.success(menuItemsResponse))
             return
         }
 
@@ -86,16 +83,15 @@ final class MenuItemsNetworkService: MenuItemsNetworkServiceProtocol {
             return
         }
 
-        let request = urlSession.dataTask(with: URLRequest(url: url)) { [jsonDecoder, cachingService] data, response, error in
+        let request = urlSession.dataTask(with: URLRequest(url: url)) { [jsonDecoder] data, response, error in
             switch (data, error) {
             case let (.some(data), nil):
                 do {
                     print("Fetched Menu Item")
                     var menuItemsResponse = try jsonDecoder.decode(MenuItemsResponseModel.self, from: data)
                     menuItemsResponse.type = category.queryValue
-                    cachingService.cacheMenuItems(menuItemsResponse.menuItems, ofType: category)
                     
-                    completion(.success(menuItemsResponse.menuItems))
+                    completion(.success(menuItemsResponse))
                 } catch {
                     print("error: \(error)")
                     completion(.failure(error))
