@@ -8,17 +8,24 @@
 import UIKit
 import CoreData
 
-final class CachingService {
+protocol CachingServiceProtocol {
+    func loadMenuItems(forType type: String) -> [MenuItemModel]?
+    func cacheMenuItems(_ items: [MenuItemModel], ofType type: String)
+    func loadImage(forKey key: String) -> UIImage?
+    func cacheImage(_ image: UIImage, forKey key: String)
+}
+
+class CachingService: CachingServiceProtocol {
     
-    private enum CacheDirectory: String {
+    enum CacheDirectory: String {
         case images
         case entities
     }
     
     static let shared = CachingService()
     
-    private let imageCache = NSCache<NSString, UIImage>()
-    private let menuItemsCache = NSCache<NSString, NSArray>()
+    let imageCache = NSCache<NSString, UIImage>()
+    let menuItemsCache = NSCache<NSString, NSArray>()
     
     private let coreDataManager = CoreDataManager.shared
     private let maxImagesInCache = 100
@@ -58,9 +65,9 @@ final class CachingService {
     }
     
     // MARK: - Menu Items Caching
-    func cacheMenuItems(_ items: [MenuItemModel], ofType type: FoodCategory) {
+    func cacheMenuItems(_ items: [MenuItemModel], ofType type: String) {
         print("NS cached Menu Item")
-        menuItemsCache.setObject(items as NSArray, forKey: type.queryValue as NSString)
+        menuItemsCache.setObject(items as NSArray, forKey: type as NSString)
         convertToMenuItemEntity(from: items, ofType: type)
     }
     
@@ -84,8 +91,19 @@ final class CachingService {
         return nil
     }
     
+    // MARK: - Delete Cache
+    func deleteCachedMenuItems() {
+        // Delete cached menu items from NSCache
+        FoodCategory.allCases.forEach { category in
+            menuItemsCache.removeObject(forKey: category.queryValue as NSString)
+        }
+
+        // Delete cached menu items from Core Data
+        coreDataManager.deleteAll(entityName: CoreDataEntity.MenuItem.rawValue)
+    }
+    
     // MARK: - Helpers
-    private func getCacheURL(for key: String, in directory: CacheDirectory) -> URL {
+    func getCacheURL(for key: String, in directory: CacheDirectory) -> URL {
         let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent(directory.rawValue)
         
         if !FileManager.default.fileExists(atPath: cacheDirectory.path) {
@@ -113,7 +131,7 @@ final class CachingService {
         return menuItemModels
     }
     
-    func convertToMenuItemEntity(from models: [MenuItemModel], ofType type: FoodCategory) {
+    func convertToMenuItemEntity(from models: [MenuItemModel], ofType type: String) {
         for model in models {
             guard let servings = coreDataManager.create(entityType: Servings.self) else { return }
             servings.number = model.servings.number
@@ -126,7 +144,7 @@ final class CachingService {
             menuItem.restaurantChain = model.restaurantChain
             menuItem.image = model.image
             menuItem.imageType = model.imageType
-            menuItem.type = type.queryValue
+            menuItem.type = type
             menuItem.servings = servings
             
             print("Saved to CoreData")

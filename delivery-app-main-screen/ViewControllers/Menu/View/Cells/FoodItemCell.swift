@@ -18,43 +18,37 @@ class FoodItemCell: UITableViewCell {
     func configure(with item: MenuItemModel?) {
         isLoading = false
         itemsNameLabel.text = item?.title ?? "Item"
+        itemsIngredientsLabel.text = "Tomatos, letuce, onions, ground beef"
+        itemsPriceLabel.text = "14.99 USD"
         itemsImageView.setImage(fromURL: item?.image ?? "", withId: String(item?.id ?? 0))
     }
     
     private func updateLoadingState() {
-        if isLoading {
-            itemsImageView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-            itemsImageView.layer.cornerRadius = 10.0
-            
-            itemsNameLabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-            itemsNameLabel.layer.cornerRadius = 10.0
-            
-            itemsIngredientsLabel.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-            itemsIngredientsLabel.layer.cornerRadius = 10.0
-            
-            purchaseButon.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-            purchaseButon.layer.cornerRadius = 10.0
-        } else {
-            itemsImageView.backgroundColor = .clear
-            itemsImageView.layer.cornerRadius = 0.0
-            
-            itemsNameLabel.backgroundColor = .clear
-            itemsNameLabel.layer.cornerRadius = 0.0
-            
-            itemsIngredientsLabel.backgroundColor = .clear
-            itemsIngredientsLabel.layer.cornerRadius = 0.0
-            
-            purchaseButon.backgroundColor = .clear
-            purchaseButon.layer.cornerRadius = 5.0
+        itemsImageView.setTemplate(isLoading)
+        itemsImageView.setShimmeringAnimation(isLoading, viewBackgroundColor: .systemBackground,
+                                              animationSpeed: 1.5)
+        
+        itemsNameLabel.setTemplate(isLoading)
+        itemsNameLabel.setShimmeringAnimation(isLoading, viewBackgroundColor: .systemBackground,
+                                              animationSpeed: 1.5)
+        itemsIngredientsLabel.setTemplate(isLoading)
+        itemsIngredientsLabel.setShimmeringAnimation(isLoading, viewBackgroundColor: .systemBackground,
+                                              animationSpeed: 1.5)
+        itemsPriceLabel.setTemplate(isLoading)
+        itemsPriceLabel.setShimmeringAnimation(isLoading, viewBackgroundColor: .systemBackground,
+                                              animationSpeed: 1.5)
+        
+        if !isLoading {
+            itemsIngredientsLabel.textColor = .gray
+            addItemButton.backgroundColor = Colors().tabItemActive
         }
     }
     
-    
     let itemsImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray.withAlphaComponent(0.2)
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleToFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10.0
         
         return imageView
     }()
@@ -62,61 +56,60 @@ class FoodItemCell: UITableViewCell {
     let roundedContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray.withAlphaComponent(0.2)
-        view.clipsToBounds = true
+        view.clipsToBounds = false
         view.layer.cornerRadius = 10.0
-        
-        return view
-    }()
-    
-    let infoContainer: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.clipsToBounds = true
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowRadius = 5
+        view.layer.shadowOffset = .zero
         
         return view
     }()
     
     let itemsNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         label.textColor = .black
-        label.backgroundColor = .clear
         label.textAlignment = .left
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.clipsToBounds = true
+        label.backgroundColor = .clear
+
         return label
     }()
     
     let itemsIngredientsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13.0)
-        label.text = "Ветчина, шапиньоны, увеличенная порция моцареллы, томатный соус"
-        label.textColor = .gray
-        label.backgroundColor = .clear
+        label.textColor = .clear
         label.textAlignment = .left
         label.numberOfLines = 4
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.clipsToBounds = true
+        label.text = "Tomatos, letuce, onions, ground beef"
+        label.backgroundColor = .clear
+
         return label
     }()
     
-    let purchaseButon: UIButton = {
-        let button = UIButton()
-        button.setTitle("от 345 р", for: .normal)
-        button.setTitleColor(Colors().tabItemActive, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 1
-        button.layer.borderColor = Colors().tabItemActive.cgColor
-        
-        return button
+    let itemsPriceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15.0)
+        label.textColor = .black
+        label.textAlignment = .left
+        label.numberOfLines = 4
+        label.clipsToBounds = true
+        label.backgroundColor = .clear
+
+        return label
     }()
     
-    let separatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
+    let addItemButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17.0, weight: .semibold)), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .lightGray
+        
+        return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -124,22 +117,21 @@ class FoodItemCell: UITableViewCell {
         
         backgroundColor = .clear
         setupCellLayout()
-        bringSubviewToFront(separatorLine)
+        updateLoadingState()
     }
     
     //MARK: - Appearence
     private func setupCellLayout() {
         addSubview(roundedContainer)
         roundedContainer.addSubview(itemsImageView)
-        addSubview(infoContainer)
-        infoContainer.addSubview(itemsNameLabel)
-        infoContainer.addSubview(itemsIngredientsLabel)
-        infoContainer.addSubview(purchaseButon)
-        addSubview(separatorLine)
+        addSubview(itemsNameLabel)
+        addSubview(itemsIngredientsLabel)
+        addSubview(itemsPriceLabel)
+        addSubview(addItemButton)
         
         roundedContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            roundedContainer.leftAnchor.constraint(equalTo: leftAnchor, constant: 20.0),
+            roundedContainer.rightAnchor.constraint(equalTo: rightAnchor, constant: -20.0),
             roundedContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
             roundedContainer.widthAnchor.constraint(equalToConstant: 120.0),
             roundedContainer.heightAnchor.constraint(equalToConstant: 120.0)
@@ -153,46 +145,38 @@ class FoodItemCell: UITableViewCell {
             itemsImageView.heightAnchor.constraint(equalTo: roundedContainer.heightAnchor)
         ])
         
-        infoContainer.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            infoContainer.centerYAnchor.constraint(equalTo: itemsImageView.centerYAnchor),
-            infoContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
-            infoContainer.leadingAnchor.constraint(equalTo: itemsImageView.trailingAnchor, constant: 10.0),
-            infoContainer.heightAnchor.constraint(equalToConstant: 136.0),
-        ])
-        
         itemsNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            itemsNameLabel.topAnchor.constraint(equalTo: infoContainer.topAnchor, constant: 5.0),
-            itemsNameLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
-            itemsNameLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
+            itemsNameLabel.topAnchor.constraint(equalTo: roundedContainer.topAnchor, constant: 5.0),
+            itemsNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            itemsNameLabel.trailingAnchor.constraint(equalTo: roundedContainer.leadingAnchor, constant: -20),
             itemsNameLabel.heightAnchor.constraint(equalToConstant: 20.0)
         ])
         
         itemsIngredientsLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemsIngredientsLabel.sizeToFit()
         NSLayoutConstraint.activate([
             itemsIngredientsLabel.topAnchor.constraint(equalTo: itemsNameLabel.bottomAnchor, constant: 5.0),
-            itemsIngredientsLabel.leadingAnchor.constraint(equalTo: infoContainer.leadingAnchor),
-            itemsIngredientsLabel.trailingAnchor.constraint(equalTo: infoContainer.trailingAnchor),
-            itemsIngredientsLabel.bottomAnchor.constraint(equalTo: purchaseButon.topAnchor, constant: -5.0),
+            itemsIngredientsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            itemsIngredientsLabel.trailingAnchor.constraint(equalTo: roundedContainer.leadingAnchor, constant: -20),
         ])
         
-        purchaseButon.translatesAutoresizingMaskIntoConstraints = false
+        itemsPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            purchaseButon.bottomAnchor.constraint(equalTo: infoContainer.bottomAnchor, constant: -5.0),
-            purchaseButon.rightAnchor.constraint(equalTo: infoContainer.rightAnchor),
-            purchaseButon.heightAnchor.constraint(equalToConstant: 30.0),
-            purchaseButon.widthAnchor.constraint(equalToConstant: 90.0)
+            itemsPriceLabel.topAnchor.constraint(equalTo: itemsIngredientsLabel.bottomAnchor, constant: 15.0),
+            itemsPriceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            itemsPriceLabel.widthAnchor.constraint(equalToConstant: 100.0),
+            itemsPriceLabel.heightAnchor.constraint(equalToConstant: 30.0)
         ])
-        purchaseButon.layer.cornerRadius = 5
         
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        addItemButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 1.0)
+            addItemButton.bottomAnchor.constraint(equalTo: roundedContainer.bottomAnchor, constant: 7.5),
+            addItemButton.rightAnchor.constraint(equalTo: roundedContainer.rightAnchor, constant: 7.5),
+            addItemButton.heightAnchor.constraint(equalToConstant: 30.0),
+            addItemButton.widthAnchor.constraint(equalToConstant: 30.0)
         ])
+        addItemButton.layer.cornerRadius = 15
     }
     
     required init?(coder: NSCoder) {
